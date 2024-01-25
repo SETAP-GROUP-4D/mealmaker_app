@@ -1,0 +1,19 @@
+{
+  "name": "mealmaker_app",
+  "version": "1.0.0",
+  "description": "An application that suggest meals based on user ingredients.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SETAP-GROUP-4D/mealmaker.git"
+  },
+  "author": "up2015489,up2136848,up2090849,up942028,up2157114,up2158834,up2136053",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SETAP-GROUP-4D/mealmaker/issues"
+  },
+  "homepage": "https://github.com/SETAP-GROUP-4D/mealmaker#readme"
+}
