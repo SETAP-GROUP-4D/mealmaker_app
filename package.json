@@ -2,7 +2,7 @@
   "name": "mealmaker_app",
   "version": "1.0.0",
   "description": "An application that suggest meals based on user ingredients.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SETAP-GROUP-4D/mealmaker/issues"
   },
-  "homepage": "https://github.com/SETAP-GROUP-4D/mealmaker#readme"
+  "homepage": "https://github.com/SETAP-GROUP-4D/mealmaker#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
