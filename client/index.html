@@ -10,15 +10,19 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 </head>
 <body>
-    <h2 id="namePage_title">Create Account</h2>
+    <!--Log In Section for existing Users.-->
+    <h2 id="namePage_title">Log In</h2>
     <p id="error-msg"> Here. </p>
-    <form id="userInputNameForm" action="sign_up.html">
-        <input id='nameInput' value="" placeholder="Enter here..." type="text" required>
-        <input id='nameButton' type="submit" class="btn btn-primary" value="SUBMIT">
+    <form id="userInputNameForm">
+        <input id='loginInput' value="" placeholder="Username or Email" type="text" required>
+        <input id='loginInput_password' value="" placeholder="Password" type="text" required>
+        <input id='loginButton' type="submit" class="btn btn-primary" value="SUBMIT">
     </form>
+    <!--Seperate-->
     <a href="index.html" title="Go Back." target="_self"><button id="backHomeButton">< BACK</button></a>
-    <button class="btn btn-primary"> Log in </button>
-    <button class="btn btn-primary"> Continue as Guest</button>
+    <a href="sign_up.html"><button id="signup_button" class="btn btn-primary"> Log in </button></a>
+    <button id="guest_button" class="btn btn-primary"> Continue as Guest</button>
+    <!--Sign Up Button and Guest Button connected to the Pages using links-->
 </body>
 <script src="name-page.js"></script>
 </html>
