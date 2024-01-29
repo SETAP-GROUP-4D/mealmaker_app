@@ -11,7 +11,7 @@ body {
 }
 .loginSection {
     position: fixed;
-    top: 10%;
+    top: 7%;
     left: 23%;
     width: 50%;
     text-align: center;
@@ -27,7 +27,7 @@ body {
     display: flex ;
     justify-content: space-evenly;
     position: relative;
-    background-color: grey;
+    background: -webkit-linear-gradient(rgb(126, 126, 126), rgb(56, 56, 56));
     text-decoration: none;
     top: -130px;
 }
@@ -50,13 +50,13 @@ li {
     font-size: 80px;
 }
 #userInputNameForm {
-    padding: 20px;
+    padding: 0px 10px 10px 10px;
     border: 1px solid red;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-#userInputNameForm  input {
+#userInputNameForm input {
     font-size:20px;
     padding: 10px;
     font-family: 'PT Serif';
@@ -69,8 +69,6 @@ li {
 #loginButton {
     background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(116, 116, 116));
 }
-
-
 
 /* We can create adaptive rules for example: 
 this exampl below changes font size and color as the page surpases the max-width of 400px */
