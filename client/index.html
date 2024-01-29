@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 </head>
+
 <body>
-    <!--Log In Section for existing Users.-->
-    <h2 id="namePage_title">Log In</h2>
-    <p id="error-msg"> Here. </p>
-    <form id="userInputNameForm">
-        <input id='loginInput' value="" placeholder="Username or Email" type="text" required>
-        <input id='loginInput_password' value="" placeholder="Password" type="text" required>
-        <input id='loginButton' type="submit" class="btn btn-primary" value="SUBMIT">
-    </form>
-    <!--Seperate-->
-    <a href="index.html" title="Go Back." target="_self"><button id="backHomeButton">< BACK</button></a>
-    <a href="sign_up.html"><button id="signup_button" class="btn btn-primary"> Log in </button></a>
-    <button id="guest_button" class="btn btn-primary"> Continue as Guest</button>
-    <!--Sign Up Button and Guest Button connected to the Pages using links-->
+    <div class="loginSection">
+        <div>
+            <h1 id="pageTitle">Meal Maker.io</h1>
+        </div>
+        <div class="page_header">
+            <ul id="page_links">
+                <li>Home</li>
+                <li>About Us</li>
+                <li>Contact Us</li>
+              </ul>
+        </div>
+        <!--Log In Section for existing Users.-->
+        <h2 id="login_title"><b>Log In</b></h2>
+        <p id="error-msg"> </p>
+        <form id="userInputNameForm">
+            <input id='loginInput' value="" placeholder="Username or Email" type="text" required>
+            <input id='loginInput_password' value="" placeholder="Password" type="text" required>
+            <input id='loginButton' type="submit" class="btn btn-primary" value="SUBMIT">
+        </form>
+    </div>
+    <!--Seperat Sectione-->
+    <div>
+        <a href="sign_up.html"><button id="signup_button" class="btn btn-primary"> Log in </button></a>
+        <a href="ingredientsPage.html"><button id="guest_button" class="btn btn-primary"> Continue as Guest</button></a>
+        <!--Sign Up Button and Guest Button connected to the Pages using links-->
+    </div>
 </body>
 <script src="name-page.js"></script>
+
 </html>

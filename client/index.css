@@ -1,87 +1,80 @@
 body {
-    font-size: 16px;
+    font-size: 10px;
     margin: auto;
     padding-top: 10px;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    background-image: url('https://www.freepik.com/free-vector/smooth-white-wave-background_12230268.htm#query=white%20background&position=7&from_view=keyword&track=ais&uuid=7c0836c9-2b20-4dd5-b46e-be6dc9b33e7a');
+    background-image: url('v748-toon-103.jpg');
     overflow: hidden;
+}
+.loginSection {
+    position: fixed;
+    top: 10%;
+    left: 23%;
+    width: 50%;
     text-align: center;
 }
-.img_link {
-    display: none;
-}
-h2#namePage_title{
-    font-size: 55px;
-    position: fixed;
-    top: 30%;
-    right: 18%;
+.page_header {
+    padding: -10px;
+    font-size: 20px;
     text-align: center;
-    background: -webkit-linear-gradient(rgb(216, 246, 254), rgb(3, 72, 162));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: 'Press Start 2P';
-    letter-spacing: 0px;
-}
-#loginInput,#loginInput_password, #loginButton, #backHomeButton{
-    font-family: 'Press Start 2P';
-    background-color: white;
-    color: black;
-    position: fixed;
-    border-radius: 100px;
-    border: 2px solid purple;
-    padding-left: 35px;
-}
-#nameInput {
-    font-size: 23px;
-    text-align: center;
-    left: 20%;
-    top: 49%;
-    width: 63%;
-    height: 7%;
-}
-#nameInput :focus {
-    color: green;
-}
-
-p#error-msg {
-    font-size: 18;
-    font-family: 'Press Start 2P';
-    position: fixed;
-    top: 44%;
-    left: 47%;
-    /* var(--mycolor) is the use of variables in css.  */
-    color: var(--mycolor); 
-    font-weight: bolder;
-    letter-spacing: 2px;
-}
-
-#nameButton, #backHomeButton{
-    letter-spacing: 1px;
-    background: -webkit-linear-gradient(rgb(77, 181, 209), rgb(3, 72, 162));
+    border: 1px solid grey;
     color: white;
-    left: 37.5%;
-    top: 60%;
-    width: 41%;
-    height: 5%;
-    font-size: large;
-    box-shadow: 10px 10px 10px black;;
+    border-radius: 30px;
+    width: 100%;
+    display: flex ;
+    justify-content: space-evenly;
+    position: relative;
+    background-color: grey;
+    text-decoration: none;
+    top: -130px;
+}
+li {
+    display: inline-block;
 }
 
-#nameButton:hover, #backHomeButton:hover {
-    color: black;
-    background: -webkit-linear-gradient(rgb(244, 246, 246), rgb(66, 66, 67));
-    box-shadow: none;
-    border: 3px solid black ;
-    opacity: 0.7;
+#page_links {
+    list-style: none;
 }
+#login_title, #pageTitle{
+    font-family: 'PT Serif';
+    font-size: 50px;
+    color: black;
+    text-decoration: solid;
+}
+#pageTitle {
+    position: relative;
+    top: -100px;
+    font-size: 80px;
+}
+#userInputNameForm {
+    padding: 20px;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#userInputNameForm  input {
+    font-size:20px;
+    padding: 10px;
+    font-family: 'PT Serif';
+    color: black;
+    border-radius: 70px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+#loginButton {
+    background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(116, 116, 116));
+}
+
 
 
 /* We can create adaptive rules for example: 
 this exampl below changes font size and color as the page surpases the max-width of 400px */
-@media (max-width: 1400px) {
+@media (max-width: 400px) {
     body{
     background-image: url('');
     font-size: small;
