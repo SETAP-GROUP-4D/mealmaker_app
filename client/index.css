@@ -9,6 +9,7 @@ body {
     background-image: url('v748-toon-103.jpg');
     overflow: hidden;
 }
+/*Log In Section is the div for all elements on the page with a fix position for the elements within the pahe*/
 .loginSection {
     position: fixed;
     top: 7%;
@@ -16,6 +17,7 @@ body {
     width: 70%;
     text-align: center;
 }
+/*The Header of the */
 .page_header {
     padding: -10px;
     font-size: 20px;
@@ -51,10 +53,13 @@ div {
     top: -100px;
     font-size: 80px;
 }
+#page_links {
+    display: flex;
+    justify-content: space-around;
+}
 #guest_signup {
     display: flex;
     justify-content: space-around;
-    border: 1px solid red;
 }
 #guest_signup, #userInputNameForm {
     position: relative;
