@@ -35,6 +35,7 @@ body {
 }
 li {
     display: inline-block;
+    margin-right: 16px;
 }
 div {
     text-align: center;
