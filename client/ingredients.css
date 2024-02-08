@@ -21,3 +21,39 @@ hr {
 .form {
     display: flex;
 }
+#vegImage {
+    width: 100%;
+    border-radius: 40px;
+    margin-bottom: 20px;
+}
+
+.ingredientsSection {
+    display: grid;
+}
+.ingredientsSector {
+    margin: auto;
+    width: 400px;
+    border: 1px solid black;
+    border-radius: 40px;
+    padding-bottom: 20px;
+    transition: ease 0.5s;
+
+}
+.ingredientsSector:hover {
+    box-shadow: 1px 4px 1px 4px black;
+    width: 430px;
+
+}
+.listSector > button {
+    padding: 7px;
+    border-radius: 10px;
+    margin: 3px;
+    border: none;
+    background-color: rgb(220, 231, 235);
+    transition: ease .4s;
+}
+.listSector > button:hover {
+    padding: 8px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px 1px black;
+}
