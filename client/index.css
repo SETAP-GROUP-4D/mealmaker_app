@@ -6,7 +6,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    background-image: url('client/Abstract_Connected_Triangles_On_Bright_Grey_Background_Free_Stock_Video_Footage_HD_4K.mp4');
+    background-image: url('v748-toon-103.jpg');
     overflow: hidden;
 }
 /*Log In Section is the div for all elements on the page with a fix position for the elements within the pahe*/
@@ -17,21 +17,30 @@ body {
     width: 70%;
     text-align: center;
 }
-/*The Header of the */
+/*The Header of the page with the page options */
 .page_header {
-    padding: -10px;
+    padding: 5px;
     font-size: 20px;
     text-align: center;
     border: 1px solid grey;
     color: white;
     border-radius: 30px;
     width: 101%;
-    display: flex ;
+    display: flex;
     justify-content: space-evenly;
     position: relative;
     background: -webkit-linear-gradient(rgb(126, 126, 126), rgb(56, 56, 56));
     text-decoration: none;
     top: -130px;
+}
+
+.page_header > div {
+    border-radius: 30px;
+    padding: 15px;
+    transition: ease .4s;
+}
+.page_header > div:hover {
+    box-shadow: 2px 2px 2px 2px black;
 }
 li {
     display: inline-block;
@@ -63,7 +72,7 @@ div {
 }
 #guest_signup, #userInputNameForm {
     position: relative;
-    left: 8%;
+    left: 5%;
 }
 #userInputNameForm {
     width: 90%;
@@ -83,10 +92,15 @@ div {
 }
 
 #loginButton, #guest_button, #signup_button {
+    padding: 10px 25px 10px 25px;;
     background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(116, 116, 116));
-    
+    transition: ease .5s;
 }
 
+#loginButton:hover, #guest_button:hover, #signup_button:hover  {
+    font-size: 22px;
+    box-shadow: 1px 1px 1px 1px black;
+}
 /* We can create adaptive rules for example: 
 this exampl below changes font size and color as the page surpases the max-width of 400px */
 @media (max-width: 400px) {
