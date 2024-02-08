@@ -1,0 +1,23 @@
+body {
+    font-size: 10px;
+    margin: auto;
+    padding-top: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-image: url('v748-toon-103.jpg');
+    overflow: hidden;
+    text-align: center;
+}
+#pageTitle {
+    margin: auto;
+    position: relative;
+    font-size: 80px;
+}
+hr {
+    width: 70%;
+}
+.form {
+    display: flex;
+}
