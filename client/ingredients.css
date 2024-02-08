@@ -26,9 +26,9 @@ hr {
     border-radius: 40px;
     margin-bottom: 20px;
 }
-
 .ingredientsSection {
     display: grid;
+    grid-template-columns: auto auto;
 }
 .ingredientsSector {
     margin: auto;
