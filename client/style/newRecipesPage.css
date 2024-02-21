@@ -1,0 +1,157 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('/project_files/v748-toon-103.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Optional: Keeps the background fixed while scrolling */
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+#home-icon {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+#homeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+#homeButton img {
+    width: 30px; /* Adjust the size as needed */
+    height: 30px;
+    border-radius: 8px; /* Adjust the border radius as needed */
+}
+
+.animated-heading {
+    animation: bounce 2s infinite; /* Adjust the duration and animation type as needed */
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+
+header {
+    margin: 0;
+    padding: 10px;
+    background-color: transparent; /* Set the background color to transparent */
+    color: black;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+    background-color: rgba(0, 140, 186, 0.7);
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px; /* Adjust the border radius as needed */
+}
+
+button:hover {
+    background-color: #005266;
+}
+
+#recipeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+
+
+.recipe {
+    width: 300px;
+    margin: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+p {
+    color: #555;
+}
+
+#backButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+#bookmarkButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    color: black;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    background-color: transparent; /* Transparent by default */
+    transition: background-color 0.3s; /* Smooth transition for the background color */
+}
+
+#bookmarkButton:hover {
+    background-color: rgba(33, 33, 33, 0.7); /* Light black background color on hover */
+}
+
+/* Media queries for responsiveness */
+@media only screen and (max-width: 768px) {
+    header {
+        padding: 5px;
+    }
+
+    button {
+        padding: 8px;
+        margin: 3px;
+    }
+
+    #recipeContainer {
+        padding: 10px;
+    }
+
+    #backButton {
+        bottom: 5px;
+        right: 5px;
+        padding: 8px;
+    }
+
+    #bookmarkButton {
+        top: 5px;
+        right: 5px;
+        left: auto;
+    }
+}
+
