@@ -1,5 +1,5 @@
 let ingredientsArray = [];
-let listCopy = [];
+let arrCopy = [];
 let allMeals = [];
 
 
@@ -15,7 +15,8 @@ document.querySelector("#submitIngredientsButton").addEventListener('click', mea
 
 
 function mealAlgorithm() {
-    ingredient.pop() //since the submit button is button, we need to remove the last value in the ingredients array
+    ingredientsArray.pop() //since the submit button is a button, we need to remove the last value in the ingredients array
+    arrCopy = ingredientsArray;
     console.log('clicked', ingredientsArray);
     mealDictionary = {
         'french toast': ['egg', 'milk', 'white bread', 'cinammon', 'vanilla extract'],
@@ -25,7 +26,8 @@ function mealAlgorithm() {
     }
     for (let i = 0; i > ingredientsArray.length; i++) {
         for (let x = 0; x > ingredientsArray.length; x++) {
-            if (ingredientsArray[i] == mealAlgorithm[allMeals[i][x]]) {
+            if (arrCopy[i] == mealAlgorithm[allMeals[i][x]]) {
+                arrCopy.pop()
                 console.log(ingredientsArray[i])
                 match++
             }
