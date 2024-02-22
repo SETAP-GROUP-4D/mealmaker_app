@@ -22,6 +22,25 @@ hr {
 .form {
     display: flex;
 }
+#ingredientSearch {
+    width: 70%;
+    padding: 10px;
+    font-size: 18px;
+    margin: auto;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+#searchButton {
+    width: 50px;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
 #vegImage {
     width: 100%;
     border-radius: 40px;
@@ -62,4 +81,24 @@ hr {
     padding: 8px;
     border: 1px solid black;
     box-shadow: 1px 1px 1px 1px black;
+}
+
+#submitIngredientsButton {
+    margin: auto;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: 'PT Serif';
+    font-size: 26px;
+    background-color: lightskyblue;
+    color: white;
+    margin-top: 80px;
+    width: 550px;
+    transition: ease .4s;
+}
+
+#submitIngredientsButton:hover {
+    margin-top: 82px;
+    font-size: 24px;
+    width: 500px;
+    font-size: 24px;
 }
