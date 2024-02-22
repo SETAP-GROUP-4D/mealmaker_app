@@ -6,11 +6,11 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    background-image: url('v748-toon-103.jpg');
+    background-image: url('/project_files/v748-toon-103.jpg');
     overflow: hidden;
 }
 /*Log In Section is the div for all elements on the page with a fix position for the elements within the pahe*/
-.loginSection {
+.loginSection, .signupSection {
     position: fixed;
     top: 7%;
     left: 15%;
@@ -52,7 +52,7 @@ div {
 #page_links {
     list-style: none;
 }
-#login_title, #pageTitle{
+#login_title, #pageTitle, #signup_title{
     font-family: 'PT Serif';
     font-size: 50px;
     color: black;
@@ -71,18 +71,18 @@ div {
     display: flex;
     justify-content: space-around;
 }
-#guest_signup, #userInputNameForm {
+#guest_signup, #userInputNameForm, #signupForm {
     position: relative;
     left: 5%;
 }
-#userInputNameForm {
+#userInputNameForm, #signupForm {
     width: 90%;
     padding: 0px 10px 10px 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-#userInputNameForm input,  #guest_button, #signup_button{
+#userInputNameForm input,  #guest_button, #signup_button, #signupForm input{
     font-size:20px;
     padding: 10px;
     font-family: 'PT Serif';
@@ -92,13 +92,13 @@ div {
     margin-bottom: 10px;
 }
 
-#loginButton, #guest_button, #signup_button {
+#loginButton, #guest_button, #signup_button, #signupBtn{
     padding: 10px 25px 10px 25px;;
     background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(116, 116, 116));
     transition: ease .8s;
 }
 
-#loginButton:hover, #guest_button:hover, #signup_button:hover  {
+#loginButton:hover, #guest_button:hover, #signup_button:hover, #signupBtn:hover {
     cursor: pointer;
     font-size: 22px;
     box-shadow: 1px 1px 1px 1px black;
