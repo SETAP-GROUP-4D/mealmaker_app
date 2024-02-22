@@ -1,0 +1,104 @@
+body {
+    font-size: 10px;
+    margin: auto;
+    padding-top: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-image: url('v748-toon-103.jpg');
+    overflow: hidden;
+    text-align: center;
+    font-family: 'PT Serif';
+}
+#pageTitle {
+    margin: auto;
+    position: relative;
+    font-size: 80px;
+}
+hr {
+    width: 70%;
+}
+.form {
+    display: flex;
+}
+#ingredientSearch {
+    width: 70%;
+    padding: 10px;
+    font-size: 18px;
+    margin: auto;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+#searchButton {
+    width: 50px;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+#vegImage {
+    width: 100%;
+    border-radius: 40px;
+    margin-bottom: 20px;
+}
+.ingredientSection {
+    margin: auto;
+    width: 95%;
+    border:1px solid red;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+.ingredientsSector {
+    font-family: 'PT Serif';
+    margin: auto;
+    width: 470px;
+    border: 1px solid black;
+    border-radius: 40px;
+    padding-bottom: 20px;
+    transition: ease 0.5s;
+
+}
+.ingredientsSector:hover {
+    box-shadow: 1px 4px 1px 4px black;
+    width: 490px;
+
+}
+.listSector > button {
+    font-family: 'PT Serif';
+    padding: 7px;
+    border-radius: 10px;
+    margin: 3px;
+    border: none;
+    background-color: rgb(220, 231, 235);
+    transition: ease .4s;
+}
+.listSector > button:hover {
+    padding: 8px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+#submitIngredientsButton {
+    margin: auto;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: 'PT Serif';
+    font-size: 26px;
+    background-color: lightskyblue;
+    color: white;
+    margin-top: 80px;
+    width: 550px;
+    transition: ease .4s;
+}
+
+#submitIngredientsButton:hover {
+    margin-top: 82px;
+    font-size: 24px;
+    width: 500px;
+    font-size: 24px;
+}
