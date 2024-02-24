@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An application that suggest meals based on user ingredients.",
   "main": "server.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,13 +12,15 @@
     "type": "git",
     "url": "git+https://github.com/SETAP-GROUP-4D/mealmaker.git"
   },
-  "author": "up2015489,up2136848,up2090849,up942028,up2157114,up2158834,up2136053",
+  "author": "up2015489, up2136848, up2090849, up2157114",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SETAP-GROUP-4D/mealmaker/issues"
   },
   "homepage": "https://github.com/SETAP-GROUP-4D/mealmaker#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
   }
 }
