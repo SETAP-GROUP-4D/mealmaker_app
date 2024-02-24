@@ -8,10 +8,12 @@ body {
     background-position: center;
     background-image: url('/project_files/v748-toon-103.jpg');
     overflow: visible;
+    font-family: 'PT Serif';
 }
-/*Log In Section is the div for all elements on the page with a fix position for the elements within the pahe*/
+
+/*Log In Section is the div for all elements on the page with a fix position for the elements within the page*/
 .loginSection, .signupSection {
-    position: fixed;
+    position: relative;
     top: 7%;
     left: 15%;
     width: 70%;
@@ -31,7 +33,7 @@ body {
     position: relative;
     background: -webkit-linear-gradient(rgb(126, 126, 126), rgb(56, 56, 56));
     text-decoration: none;
-    top: -130px;
+    top: -100px;
 }
 
 .page_header > div {
@@ -60,7 +62,7 @@ div {
 }
 .pageTitle {
     position: relative;
-    top: -100px;
+    top: -60px;
     font-size: 80px;
 }
 #page_links {
@@ -92,13 +94,13 @@ div {
     margin-bottom: 10px;
 }
 
-#loginButton, #guest_button, #signup_button, #signupBtn{
+#loginButton, #guest_button, #signup_button, #signupBtn, #userBookmarksBtn, #userSelectBtn{
     padding: 10px 25px 10px 25px;;
     background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(116, 116, 116));
     transition: ease .8s;
 }
 
-#loginButton:hover, #guest_button:hover, #signup_button:hover, #signupBtn:hover {
+#loginButton:hover, #guest_button:hover, #signup_button:hover, #signupBtn:hover, #userBookmarksBtn:hover, #userSelectBtn:hover{
     cursor: pointer;
     font-size: 22px;
     box-shadow: 1px 1px 1px 1px black;
