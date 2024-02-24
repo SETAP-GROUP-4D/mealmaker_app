@@ -7,7 +7,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-image: url('/project_files/v748-toon-103.jpg');
-    overflow: hidden;
+    overflow: visible;
 }
 /*Log In Section is the div for all elements on the page with a fix position for the elements within the pahe*/
 .loginSection, .signupSection {
@@ -58,7 +58,7 @@ div {
     color: black;
     text-decoration: solid;
 }
-#pageTitle {
+.pageTitle {
     position: relative;
     top: -100px;
     font-size: 80px;
@@ -103,6 +103,7 @@ div {
     font-size: 22px;
     box-shadow: 1px 1px 1px 1px black;
 }
+
 #guest_signup {
     margin-bottom: 40px;
 }
