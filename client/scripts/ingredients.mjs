@@ -1,3 +1,6 @@
+// feature sugestions: remove ingredients, suggest ingredients to be added to the database
+
+
 let ingredientsArray = [];
 let arrCopy = [];
 let allMeals = [];
@@ -40,3 +43,4 @@ function mealAlgorithm() {
         }
     }
 }
+
