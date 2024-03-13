@@ -1,29 +1,5 @@
-// scripts.js
-
-// Get the bookmark button using querySelector
-const bookmarkButton = document.querySelector('#bookmarkButton');
-
-// Add a click event listener to the bookmark button
-bookmarkButton.addEventListener('click', function () {
-    // Navigate to the bookmarks.html page
-    window.location.href = 'bookmarks.html';
-});
-
-const homeButton = document.querySelector('#homeButton');
-
-// Add a click event listener to the bookmark button
-homeButton.addEventListener('click', function () {
-    // Navigate to the bookmarks.html page
-    window.location.href = 'index.html';
-});
-
-
-
-// scripts.js
-
-// Get the recipe container using querySelector
-const recipeContainer = document.querySelector('#recipeContainer');
-// const bookmarkButton = document.querySelector('#bookmarkButton');
+// global object
+const obj = {};
 
 // Simulated data for recipes (replace this with actual data or fetch from a server)
 const suggestedRecipes = [
@@ -132,5 +108,22 @@ function bookmarkRecipe(recipeIndex) {
     alert(`Recipe ${recipeIndex + 1} bookmarked!`);
 }
 
-// Call the displaySuggestedRecipes function when the script is executed
-displaySuggestedRecipes();
+
+function prepareHandles() {
+    obj.bookmarkButton = document.querySelector('#bookmarkButton');
+    obj.recipeContainer = document.querySelector('#recipeContainer');
+}
+
+function addEventListeners() {
+
+}
+
+function pageLoaded() {
+    prepareHandles();
+    addEventListeners();
+    displaySuggestedRecipes();
+}
+
+window.addEventListener('load', pageLoaded);
+
+

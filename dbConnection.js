@@ -1,7 +1,8 @@
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
-import uuid from 'uuid-random';
 
+// this is for user authentication
+import uuid from 'uuid-random';
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -12,14 +13,14 @@ async function init() {
       driver: sqlite3.Database,
       verbose: true,
     });
-    await db.migrate({ migrationsPath: './database' });
+    await db.migrate({ migrationsPath: './migrations-sqlite' });
     return db;
 }
 
-export async function createUser(username, password) {}
+// export async function createUser(username, password) {}
 
-export async function authenticateUser(username, password) {}
+// export async function authenticateUser(username, password) {}
 
-export async function getRecipe(recipe) {}
+export async function sendRecipe(recipe) {}
 
-export async function getSavedRecipes() {}
+export async function sendSavedRecipes() {}

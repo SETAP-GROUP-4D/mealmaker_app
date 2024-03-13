@@ -22,6 +22,7 @@ function mealAlgorithm() {
     arrCopy = ingredientsArray;
     console.log('clicked', ingredientsArray);
     mealDictionary = {
+        
         'french toast': ['egg', 'milk', 'white bread', 'cinammon', 'vanilla extract'],
         'pancakes': ['self-raising flour', 'baking powder', 'sugar', 'eggs', 'milk', 'maple syrup'],
         '': [],
