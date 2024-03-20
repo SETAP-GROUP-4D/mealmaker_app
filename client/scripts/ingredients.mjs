@@ -1,4 +1,4 @@
-// feature sugestions: remove ingredients, suggest ingredients to be added to the database
+// feature sugestions: remove ingredients
 
 
 let ingredientsArray = [];
