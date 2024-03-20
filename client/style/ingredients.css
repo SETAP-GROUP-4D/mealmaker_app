@@ -6,7 +6,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    background-image: url('/project_files/v748-toon-103.jpg');
+    background-image: url('/client/project_files/v748-toon-103.jpg');
     overflow: hidden;
     text-align: center;
     font-family: 'PT Serif';
@@ -21,6 +21,21 @@ hr {
 }
 .form {
     display: flex;
+}
+#userProfile {
+    border: 2px solid blue;
+    border-radius: 50px;
+    padding: 15px;
+    margin: auto;
+    position: fixed;
+    left: 3%;
+    top:3%;
+    transition: .3s ease;
+}
+#userProfile:hover {
+    padding: 19px;
+    border: 2px solid greenyellow;
+    background-color: rgb(213, 213, 213);
 }
 #ingredientSearch {
     width: 70%;
