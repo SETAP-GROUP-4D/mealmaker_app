@@ -8,6 +8,7 @@ let allMeals = [];
 
 
 const ingredientButtons = document.querySelectorAll("button");
+
 ingredientButtons.forEach(function (ingredient) {
     ingredient.addEventListener('click', function (e) {
         ingredientsArray.push(ingredient.value);
