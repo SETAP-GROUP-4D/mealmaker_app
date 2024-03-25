@@ -6,7 +6,7 @@ import uuid from 'uuid-random';
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-
+// Initialize the database connection
 async function init() {
     const db = await open({
       filename: './database.sqlite',
@@ -17,10 +17,14 @@ async function init() {
     return db;
 }
 
+const dbConn = init();
+
 // export async function createUser(username, password) {}
 
 // export async function authenticateUser(username, password) {}
 
 export async function sendRecipe(recipe) {}
 
-export async function sendSavedRecipes() {}
+export async function sendSavedRecipes(id) {
+  
+}

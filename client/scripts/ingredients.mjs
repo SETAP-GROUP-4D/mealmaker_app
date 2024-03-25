@@ -1,4 +1,4 @@
-// feature sugestions: remove ingredients, suggest ingredients to be added to the database
+// feature sugestions: remove ingredients
 
 
 let ingredientsArray = [];
@@ -8,6 +8,7 @@ let allMeals = [];
 
 
 const ingredientButtons = document.querySelectorAll("button");
+
 ingredientButtons.forEach(function (ingredient) {
     ingredient.addEventListener('click', function (e) {
         ingredientsArray.push(ingredient.value);
