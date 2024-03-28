@@ -16,8 +16,6 @@ ingredientButtons.forEach(function (ingredient) {
         else {
             console.log(`${ingredient.value}, already exists`)
         }
-
-        
     })
 })
 document.querySelector("#submitIngredientsButton").addEventListener('click', mealAlgorithm)
