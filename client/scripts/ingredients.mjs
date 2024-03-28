@@ -12,6 +12,7 @@ ingredientButtons.forEach(function (ingredient) {
     ingredient.addEventListener('click', function (e) {
         if (ingredientsArray.indexOf(ingredient.value) == -1) {
             ingredientsArray.push(ingredient.value);
+            ingredient.style.border = "2px solid green"
         }
         else {
             console.log(`${ingredient.value}, already exists`)
