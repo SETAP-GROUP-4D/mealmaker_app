@@ -1,6 +1,6 @@
 // feature sugestions: remove ingredients
 
-
+console.log("Running...")
 let ingredientsArray = [];
 let arrCopy = [];
 let allMeals = [];
@@ -10,19 +10,25 @@ let allMeals = [];
 const ingredientButtons = document.querySelectorAll("button");
 ingredientButtons.forEach(function (ingredient) {
     ingredient.addEventListener('click', function (e) {
-        ingredientsArray.push(ingredient.value);
+        if (ingredientsArray.indexOf(ingredient.value) == -1) {
+            ingredientsArray.push(ingredient.value);
+        }
+        else {
+            console.log(`${ingredient.value}, already exists`)
+        }
 
+        
     })
 })
 document.querySelector("#submitIngredientsButton").addEventListener('click', mealAlgorithm)
 
-
+// gonna make this an export function since its mjs.
 function mealAlgorithm() {
     ingredientsArray.pop() //since the submit button is a button, we need to remove the last value in the ingredients array
     arrCopy = ingredientsArray;
     console.log('clicked', ingredientsArray);
     mealDictionary = {
-        
+
         'french toast': ['egg', 'milk', 'white bread', 'cinammon', 'vanilla extract'],
         'pancakes': ['self-raising flour', 'baking powder', 'sugar', 'eggs', 'milk', 'maple syrup'],
         '': [],
