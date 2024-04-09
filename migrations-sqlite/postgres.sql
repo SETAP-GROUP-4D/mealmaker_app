@@ -323,4 +323,3 @@ INSERT INTO INGREDIENT (INGREDIENT_NAME, CATEGORY) VALUES
 ('Spaghetti'),
 ('Ground Beef'),
 ('Beef Broth');
-

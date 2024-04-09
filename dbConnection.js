@@ -8,13 +8,13 @@ const saltRounds = 10;
 
 // Initialize the database connection
 async function init() {
-    const db = await open({
-      filename: './database.sqlite',
-      driver: sqlite3.Database,
-      verbose: true,
-    });
-    await db.migrate({ migrationsPath: './migrations-sqlite' });
-    return db;
+  const db = await open({
+    filename: './database.sqlite',
+    driver: sqlite3.Database,
+    verbose: true,
+  });
+  await db.migrate({ migrationsPath: './migrations-sqlite' });
+  return db;
 }
 
 const dbConn = init();
@@ -23,8 +23,14 @@ const dbConn = init();
 
 // export async function authenticateUser(username, password) {}
 
+export async function sendIngredients() {
+  const db = await dbConn;
+  const ingredients = await db.all('SELECT * FROM ingredients');
+  return ingredients;
+}
+
 export async function sendRecipe(recipe) {}
 
 export async function sendSavedRecipes(id) {
-  
+
 }
