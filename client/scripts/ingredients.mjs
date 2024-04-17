@@ -103,7 +103,7 @@ async function fetchRecipes() {
     // Show the recipes
     const recipes = await response.json();
     global.recipes = recipes;
-    console.log(recipes);
+    console.log(recipes, 'recipes');
   } else {
     console.log('failed to send ingredients', response);
   }
