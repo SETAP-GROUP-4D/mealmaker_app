@@ -7,7 +7,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-image: url('/project_files/v748-toon-103.jpg');
-    overflow: hidden;
+    overflow: scroll;
     text-align: center;
     font-family: 'PT Serif';
 }
@@ -56,18 +56,20 @@ hr {
     border-left: none;
     cursor: pointer;
 }
-#vegImage {
+.categoryImage {
     width: 100%;
     border-radius: 40px;
     margin-bottom: 20px;
 }
+
 .ingredientSection {
     margin: auto;
     width: 95%;
-    border:1px solid red;
-    display: grid;
-    grid-template-columns: auto auto auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
+
 .ingredientsSector {
     font-family: 'PT Serif';
     margin: auto;
@@ -83,6 +85,12 @@ hr {
     width: 490px;
 
 }
+
+.listSector > button.selectedIngredient {
+    background-color: darkblue;
+    color: white;
+}
+
 .listSector > button {
     font-family: 'PT Serif';
     padding: 7px;
@@ -98,22 +106,30 @@ hr {
     box-shadow: 1px 1px 1px 1px black;
 }
 
+.listSector{
+    width: 100%;
+    height: 200px;
+    overflow: auto; /* Enable scrolling */
+}
+
 #submitIngredientsButton {
     margin: auto;
     padding: 10px;
     border-radius: 20px;
     font-family: 'PT Serif';
     font-size: 26px;
-    background-color: lightskyblue;
+    background-color: darkblue;
     color: white;
-    margin-top: 80px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     width: 550px;
-    transition: ease .4s;
+    cursor: pointer;
 }
 
-#submitIngredientsButton:hover {
-    margin-top: 82px;
-    font-size: 24px;
-    width: 500px;
-    font-size: 24px;
+.hide {
+    display: none;
+}
+
+.selectedIngredientsArray {
+
 }
