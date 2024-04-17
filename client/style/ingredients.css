@@ -11,7 +11,7 @@ body {
     text-align: center;
     font-family: 'PT Serif';
 }
-#pageTitle {
+.pageTitle {
     margin: auto;
     position: relative;
     font-size: 80px;
@@ -22,7 +22,7 @@ hr {
 .form {
     display: flex;
 }
-#userProfile {
+.userProfile {
     border: 2px solid blue;
     border-radius: 50px;
     padding: 15px;
@@ -32,12 +32,12 @@ hr {
     top:3%;
     transition: .3s ease;
 }
-#userProfile:hover {
+.userProfile:hover {
     padding: 19px;
     border: 2px solid greenyellow;
     background-color: rgb(213, 213, 213);
 }
-#ingredientSearch {
+.search {
     width: 70%;
     padding: 10px;
     font-size: 18px;
@@ -46,7 +46,7 @@ hr {
     border: 1px solid black;
     border-radius: 20px;
 }
-#searchButton {
+.searchButton {
     width: 50px;
     padding: 10px;
     background: #2196F3;
@@ -56,13 +56,13 @@ hr {
     border-left: none;
     cursor: pointer;
 }
-.categoryImage {
+.image {
     width: 100%;
     border-radius: 40px;
     margin-bottom: 20px;
 }
 
-.ingredientSection {
+.ingredientSection, .recipeSection {
     margin: auto;
     width: 95%;
     display: flex;
@@ -70,7 +70,7 @@ hr {
     justify-content: space-between;
 }
 
-.ingredientsSector {
+.categoryIngredients, .recipeSector {
     font-family: 'PT Serif';
     margin: auto;
     width: 470px;
@@ -80,7 +80,7 @@ hr {
     transition: ease 0.5s;
 
 }
-.ingredientsSector:hover {
+.categoryIngredients:hover {
     box-shadow: 1px 4px 1px 4px black;
     width: 490px;
 

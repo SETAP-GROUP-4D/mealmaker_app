@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="style/ingredients.css">
     <link href="https://fonts.googleapis.com/css?family=PT+Serif&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 
 </head>
@@ -17,11 +15,11 @@
 
 <body>
     <section>
-        <h1 id="pageTitle">Meal Maker.io</h1>
+        <h1 class="pageTitle">Meal Maker.io</h1>
     </section>
     <hr>
     <!--This is the user profile button, that will allow the user to access all their saved meals/ingredients-->
-    <button id="userProfile"> 
+    <button class="userProfile"> 
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" class="bi bi-person"
             viewBox="0 0 16 16">
             <path
@@ -30,10 +28,10 @@
     </button>
 
 
-    <section id="ingredientsForm">
-        <input id='ingredientSearch' value="" placeholder="Find an Ingredient" type="text">
-        <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </section>
+    
+    <input class='search' value="" placeholder="Find an Ingredient" type="text">
+    <button class="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
+    
 
     <a href="newRecipesPage.html"><button id="submitIngredientsButton">Submit Ingredients</button></a>
 
@@ -42,8 +40,8 @@
     </section>
 
     <section class="ingredientSection">
-        <section class="ingredientsSector">
-            <img class="categoryImage" src="/project_files/healthy-vegetables-wooden-table.jpg">
+        <section class="categoryIngredients">
+            <img class="image" src="/project_files/healthy-vegetables-wooden-table.jpg">
             <h1>Vegetables & Greens</h1>
             <br>
             <section class="vegetables listSector">
@@ -56,8 +54,8 @@
             <section class="pantry listSector">
             </section>
         </section>
-        <section class="ingredientsSector">
-            <img class="categoryImage" src="/project_files/deli24-application-Raw-Meats.jpg">
+        <section class="categoryIngredients">
+            <img class="image" src="/project_files/deli24-application-Raw-Meats.jpg">
             <h1>Meats</h1>
             <br>
             <section class="meat listSector">
@@ -112,8 +110,8 @@
             <section class="poultry listSector">
             </section>
         </section>
-        <section class="ingredientsSector">
-            <img class="categoryImage" src="/project_files/deli24-application-Raw-Meats.jpg">
+        <section class="categoryIngredients">
+            <img class="image" src="/project_files/deli24-application-Raw-Meats.jpg">
             <h1>Fish</h1>
             <br>
             <section class="fish listSector">
@@ -217,8 +215,8 @@
             <section class="cannedFood listSector">
             </section>
         </section>
-        <section class="ingredientsSector">
-            <img class="categoryImage" src="/project_files/deli24-application-Raw-Meats.jpg">
+        <section class="categoryIngredients">
+            <img class="image" src="/project_files/deli24-application-Raw-Meats.jpg">
             <h1>Sauces</h1>
             <br>
             <section class="sauces listSector">

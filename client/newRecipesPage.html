@@ -4,27 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Recipes</title>
-    <link rel="stylesheet" href="style/newRecipesPage.css">
+    <link rel="stylesheet" href="style/ingredients.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 
 </head>
 <script type="module" defer src="/scripts/newRecipesPage.mjs"></script>
-
+<title>Meal Maker.io</title>
 <body>
-    <section id="home-icon">
-            <a href="home.html">Home</a>
-            <img src="/project_files/home-icon.png" alt="Home Icon">
+    <section>
+        <h1 class="pageTitle">Meal Maker.io</h1>    
+    </section>
+    <hr>
+
+   
+    <input class='search' value="" placeholder="Find Recipe" type="text">
+    <button class="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+
+    <section class="recipeContainer">
     </section>
 
-    <header>
-        <h1 class="animated-heading">Recipes</h1>
-        <button id="bookmarkButton">Bookmark</button>
-    </header>
-
-    <main id="recipeContainer">
-        <!-- Recipes will be dynamically inserted here -->
-    </main>
-
-    <button id="backButton">Back</button>
 </body>
 </html>

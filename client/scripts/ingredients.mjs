@@ -1,7 +1,5 @@
-import { showRecipes } from './newRecipesPage.mjs';
-
 // Global object to store ingredient data
-const global = { ingredientArray: [] };
+export const global = { ingredientArray: [] };
 
 // Function to remove an ingredient
 function removeIngredient(ingredientBtn) {
@@ -104,7 +102,7 @@ async function fetchRecipes() {
   if (response.ok) {
     // Show the recipes
     const recipes = await response.json();
-    showRecipes(recipes);
+    global.recipes = recipes;
     console.log(recipes);
   } else {
     console.log('failed to send ingredients', response);
@@ -120,7 +118,9 @@ function prepareHandles() {
 
 // Function to add event listeners
 function addEventListeners() {
-  global.submitIngredientsButton.addEventListener('click', fetchRecipes);
+  if (global.submitIngredientsButton) {
+    global.submitIngredientsButton.addEventListener('click', fetchRecipes);
+  }
 }
 
 // Function to be called when the page is loaded
