@@ -1,5 +1,5 @@
 // Global object to store ingredient data
-export const global = { ingredientArray: [] };
+const global = { ingredientArray: [] };
 
 // Function to remove an ingredient
 function removeIngredient(ingredientBtn) {
