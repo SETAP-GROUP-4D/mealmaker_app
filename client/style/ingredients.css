@@ -131,5 +131,20 @@ hr {
 }
 
 .selectedIngredientsArray {
-
+    border: 1px solid red;
+    padding: 10px;
+}
+.selectedIngredientsArray button {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(110, 110, 230);
+    margin: 3px;
+    transition: ease .2s;
+}
+.selectedIngredientsArray button:hover {
+    border: 2px solid black;
+    padding: 11px;
+    opacity: 10px;
+    background-color: rgb(255, 70, 70);
 }
