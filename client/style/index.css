@@ -81,13 +81,14 @@ hr {
 }
 
 /* Set the styles for the ingredientSection and recipeSection classes */
-.ingredientSection, .recipeSection {
+.ingredientSection, .recipeContainer {
     margin: auto;
     width: 95%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
 
 /* Set the styles for the categoryIngredients and recipeSector classes */
 .categoryIngredients, .recipeSector {
@@ -99,7 +100,9 @@ hr {
     padding-bottom: 20px;
     transition: ease 0.5s;
 }
-
+.categoryIngredients:hover, .recipeSector:hover {
+    width: 305px;
+}
 /* Set the styles for the selectedIngredient class when it is selected */
 .listSector > button.selectedIngredient {
     background-color: darkblue;
@@ -153,7 +156,6 @@ hr {
 
 /* Set the styles for the selectedIngredientsArray class */
 .selectedIngredientsArray {
-    border: 1px solid red;
     padding: 10px;
 }
 
@@ -295,6 +297,7 @@ div {
 #guest_signup {
     margin-bottom: 40px;
 }
+
 
 /* Set the styles for the body element when the max-width is 400px */
 @media (max-width: 400px) {
