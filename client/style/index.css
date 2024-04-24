@@ -1,3 +1,4 @@
+/* Set the styles for the body element */
 body {
     font-size: 10px;
     margin: auto;
@@ -7,11 +8,183 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-image: url('/project_files/v748-toon-103.jpg');
-    overflow: visible;
+    overflow: scroll;
+    text-align: center;
     font-family: 'PT Serif';
 }
 
-/*Log In Section is the div for all elements on the page with a fix position for the elements within the page*/
+/* Set the styles for the pageTitle class */
+.pageTitle {
+    margin: auto;
+    position: relative;
+    font-size: 80px;
+}
+
+/* Set the styles for the hr element */
+hr {
+    width: 70%;
+}
+
+/* Set the styles for the form class */
+.form {
+    display: flex;
+}
+
+/* Set the styles for the userProfile class */
+.userProfile {
+    border: 2px solid blue;
+    border-radius: 50px;
+    padding: 15px;
+    margin: auto;
+    position: fixed;
+    left: 3%;
+    top:3%;
+    transition: .3s ease;
+}
+
+/* Set the styles for the userProfile class when hovered */
+.userProfile:hover {
+    padding: 19px;
+    border: 2px solid greenyellow;
+    background-color: rgb(213, 213, 213);
+}
+
+/* Set the styles for the search class */
+.search {
+    width: 70%;
+    padding: 10px;
+    font-size: 18px;
+    margin: auto;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+/* Set the styles for the searchButton class */
+.searchButton {
+    width: 50px;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+/* Set the styles for the image class */
+.image {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+/* Set the styles for the ingredientSection and recipeSection classes */
+.ingredientSection, .recipeSection {
+    margin: auto;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Set the styles for the categoryIngredients and recipeSector classes */
+.categoryIngredients, .recipeSector {
+    font-family: 'PT Serif';
+    margin: auto;
+    width: 300px; /* Adjusted width to match the image */
+    border: 1px solid black;
+    border-radius: 20px; /* Adjusted border-radius to match the image */
+    padding-bottom: 20px;
+    transition: ease 0.5s;
+}
+
+/* Set the styles for the selectedIngredient class when it is selected */
+.listSector > button.selectedIngredient {
+    background-color: darkblue;
+    color: white;
+}
+
+/* Set the styles for the listSector class */
+.listSector > button {
+    font-family: 'PT Serif';
+    padding: 7px;
+    border-radius: 10px;
+    margin: 3px;
+    border: none;
+    background-color: rgb(220, 231, 235);
+    transition: ease .4s;
+}
+
+/* Set the styles for the listSector class when hovered */
+.listSector > button:hover {
+    padding: 8px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+/* Set the styles for the listSector class */
+.listSector{
+    width: 100%;
+    height: 200px;
+    overflow: auto; /* Enable scrolling */
+}
+
+/* Set the styles for the submitIngredientsButton id */
+#submitIngredientsButton {
+    margin: auto;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: 'PT Serif';
+    font-size: 26px;
+    background-color: darkblue;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 550px;
+    cursor: pointer;
+}
+
+/* Set the styles for the hide class */
+.hide {
+    display: none;
+}
+
+/* Set the styles for the selectedIngredientsArray class */
+.selectedIngredientsArray {
+    border: 1px solid red;
+    padding: 10px;
+}
+
+/* Set the styles for the selectedIngredientsArray class */
+.selectedIngredientsArray button {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(110, 110, 230);
+    margin: 3px;
+    transition: ease .2s;
+}
+
+/* Set the styles for the selectedIngredientsArray class when hovered */
+.selectedIngredientsArray button:hover {
+    border: 2px solid black;
+    padding: 11px;
+    opacity: 10px;
+    background-color: rgb(255, 70, 70);
+}
+
+/* Set the styles for the sticky-container class */
+.sticky-container {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+/* Set the styles for the loginSection and signupSection classes */
 .loginSection, .signupSection {
     position: relative;
     top: 7%;
@@ -19,7 +192,8 @@ body {
     width: 70%;
     text-align: center;
 }
-/*The Header of the page with the page options */
+
+/* Set the styles for the page_header class */
 .page_header {
     padding: 5px;
     font-size: 20px;
@@ -36,24 +210,28 @@ body {
     top: -100px;
 }
 
-.page_header > div {
-    border-radius: 30px;
-    padding: 15px;
-    transition: ease .4s;
-}
+/* Set the styles for the page_header class when hovered */
 .page_header > div:hover {
     box-shadow: 2px 2px 2px 2px black;
 }
+
+/* Set the styles for the li element */
 li {
     display: inline-block;
     margin-right: 16px;
 }
+
+/* Set the styles for the div element */
 div {
     text-align: center;
 }
+
+/* Set the styles for the page_links id */
 #page_links {
     list-style: none;
 }
+
+/* Set the styles for the login_title, pageTitle, and signup_title ids */
 #login_title, .pageTitle, #signup_title{
     font-family: 'PT Serif';
     font-size: 50px;
@@ -61,18 +239,25 @@ div {
     text-decoration: solid;
 }
 
+/* Set the styles for the page_links id */
 #page_links {
     display: flex;
     justify-content: space-around;
 }
+
+/* Set the styles for the guest_signup id */
 #guest_signup {
     display: flex;
     justify-content: space-around;
 }
+
+/* Set the styles for the guest_signup, userInputNameForm, and signupForm ids */
 #guest_signup, #userInputNameForm, #signupForm {
     position: relative;
     left: 5%;
 }
+
+/* Set the styles for the userInputNameForm and signupForm ids */
 #userInputNameForm, #signupForm {
     width: 90%;
     padding: 0px 10px 10px 10px;
@@ -80,6 +265,8 @@ div {
     flex-direction: column;
     justify-content: center;
 }
+
+/* Set the styles for the userInputNameForm input, guest_button, signup_button, and signupForm input */
 #userInputNameForm input,  #guest_button, #signup_button, #signupForm input{
     font-size:20px;
     padding: 10px;
@@ -90,32 +277,30 @@ div {
     margin-bottom: 10px;
 }
 
+/* Set the styles for the loginButton, guest_button, signup_button, signupBtn, userBookmarksBtn, and userSelectBtn ids */
 #loginButton, #guest_button, #signup_button, #signupBtn, #userBookmarksBtn, #userSelectBtn{
-    padding: 10px 25px 10px 25px;;
+    padding: 10px 25px 10px 25px; /* Adjusted padding for better readability */
     background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(116, 116, 116));
     transition: ease .8s;
 }
 
+/* Set the styles for the loginButton, guest_button, signup_button, signupBtn, userBookmarksBtn, and userSelectBtn ids when hovered */
 #loginButton:hover, #guest_button:hover, #signup_button:hover, #signupBtn:hover, #userBookmarksBtn:hover, #userSelectBtn:hover{
     cursor: pointer;
     font-size: 22px;
     box-shadow: 1px 1px 1px 1px black;
 }
 
+/* Set the styles for the guest_signup id */
 #guest_signup {
     margin-bottom: 40px;
 }
-/* We can create adaptive rules for example: 
-this exampl below changes font size and color as the page surpases the max-width of 400px */
+
+/* Set the styles for the body element when the max-width is 400px */
 @media (max-width: 400px) {
     body{
-    background-image: url('');
+    background-image: url(''); /* Removed the background image */
     font-size: small;
     font-style: italic;
     }
 }
-
-
-
-
-
