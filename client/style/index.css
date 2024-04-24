@@ -86,7 +86,7 @@ hr {
     width: 95%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    flex-flow: row wrap;
 }
 
 
@@ -101,7 +101,9 @@ hr {
     transition: ease 0.5s;
 }
 .categoryIngredients:hover, .recipeSector:hover {
-    width: 305px;
+    width: 315px;
+    border: 3px solid black;
+    box-shadow: 1px 1px 1px 0px;
 }
 /* Set the styles for the selectedIngredient class when it is selected */
 .listSector > button.selectedIngredient {
