@@ -159,8 +159,8 @@ async function fetchAllIngredients() {
   showIngredients(ingredients);
 }
 
-function viewRecipe(recipe) {
-
+function viewRecipe(recipeObj) {
+  console.log(recipeObj);
 }
 
 // Function to show all recipes
@@ -179,6 +179,10 @@ function showAllRecipes(recipes) {
     recipeTitle.textContent = recipeObject.label;
     recipeSec.append(recipeImg, recipeTitle);
     recipeSec.classList.add('recipeSector');
+    recipeSec.addEventListener('click', () => {
+      viewRecipe(recipeObject);
+      navigateTo('/viewrecipe');
+    });
     global.recipeContainer.append(recipeSec);
   }
 }
