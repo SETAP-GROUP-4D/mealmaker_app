@@ -160,7 +160,13 @@ async function fetchAllIngredients() {
 }
 
 function viewRecipe(recipeObj) {
-  console.log(recipeObj);
+  // const mealSec = document.createElement('section');
+  // const mealImg = document.createElement('img');
+  // const mealTitle = document.createElement('h2');
+  // const mealCalories = document.createElement('p');
+  // const mealIngredients = document.createElement('section');
+
+  console.log(recipeObj, 'recipeObj');
 }
 
 // Function to show all recipes
@@ -189,12 +195,12 @@ function showAllRecipes(recipes) {
 
 // Function to confirm ingredients
 function ingredientConfirmation(recipes) {
-  if (recipes.length === 0) {
+  if ((recipes.length === 0) && (global.noRecipe.innerHTML === '')) {
     const noRecipe = document.createElement('h2');
-    if (!(global.noRecipe.innerHTML === '')) {
-      noRecipe.textContent = 'No recipes found for ingredients chosen. Please add more ingredients or select other combinations.';
-      global.noRecipe.append(noRecipe);
-    }
+    noRecipe.textContent = 'No recipes found for ingredients chosen. Please add more ingredients or select other combinations.';
+    global.noRecipe.append(noRecipe);
+  } else if ((recipes.length === 0) && !(global.noRecipe.innerHTML === '')) {
+    console.log('working');
   } else {
     global.noRecipe.innerHTML = '';
     showAllRecipes(recipes);
