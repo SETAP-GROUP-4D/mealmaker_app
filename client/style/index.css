@@ -86,7 +86,11 @@ hr {
     display: grid;
     grid-template-columns: auto auto auto auto;
 }
-
+/* Set the title pf the recipe page to stand out*/
+#recipeOptionMessage {
+    font-family: 'PT Serif';
+    font-size: 50px;
+}
 
 /* Set the styles for the categoryIngredients and recipeSector classes */
 .categoryIngredients, .recipeSector {
