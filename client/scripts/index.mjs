@@ -268,5 +268,4 @@ function pageLoaded() {
   addEventListeners();
 }
 
-// Gets loaded when the page loads
 pageLoaded();
