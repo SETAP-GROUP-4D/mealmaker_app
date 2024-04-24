@@ -74,19 +74,17 @@ hr {
 
 /* Set the styles for the image class */
 .image {
-    width: 100%;
-    max-width: 300px;
+    width: 120%;
+    max-width: 380px;
     border-radius: 20px;
-    margin-bottom: 10px;
 }
 
 /* Set the styles for the ingredientSection and recipeSection classes */
 .ingredientSection, .recipeContainer {
     margin: auto;
     width: 95%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
 
 
@@ -94,16 +92,20 @@ hr {
 .categoryIngredients, .recipeSector {
     font-family: 'PT Serif';
     margin: auto;
-    width: 300px; /* Adjusted width to match the image */
-    border: 1px solid black;
+    width: 380px; /* Adjusted width to match the image */
+    border: 2px solid black;
     border-radius: 20px; /* Adjusted border-radius to match the image */
     padding-bottom: 20px;
     transition: ease 0.5s;
+    margin-top:10px;
 }
 .categoryIngredients:hover, .recipeSector:hover {
-    width: 315px;
+    width: 390px;
     border: 3px solid black;
     box-shadow: 1px 1px 1px 0px;
+}
+.recipeSector:hover {
+    border: 5px solid limegreen;
 }
 /* Set the styles for the selectedIngredient class when it is selected */
 .listSector > button.selectedIngredient {
