@@ -83,8 +83,9 @@ hr {
 .ingredientSection, .recipeContainer {
     margin: auto;
     width: 95%;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
 }
 /* Set the title pf the recipe page to stand out*/
 #recipeOptionMessage {

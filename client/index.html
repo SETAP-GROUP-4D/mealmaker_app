@@ -54,8 +54,9 @@
 
 
     <section id="recipePage" class="page hide">
-        <input class='search' placeholder="Find Recipe" type="text">
-        <button class="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <section class='search sticky-container'>
+            <input id="recipeSearch" placeholder="Find Recipe" type="text">
+        </section>
         <h2 id="recipeOptionMessage">Available Meals</h2>
         <section class="recipeContainer">
         </section>
@@ -78,7 +79,7 @@
         </button>
         
         <div class="sticky-container">
-            <input class='search' value="" placeholder="Find an Ingredient" type="text">
+            <input id="ingredientSearch" class='search' value="" placeholder="Find an Ingredient" type="text">
             <section class="noRecipe"></section>
             <button id="submitIngredientsButton">Submit Ingredients</button>
             <section class="selectedIngredientsArray hide">

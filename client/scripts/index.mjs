@@ -126,6 +126,20 @@ function selectIngredient(ingredient) {
   console.log(global.ingredientArray);
 }
 
+// Function to search ingredients and recipes
+function searchList(query, list) {
+  const lowerCaseQuery = query.toLowerCase();
+  const items = Array.from(list.children);
+  for (const item of items) {
+    const itemName = item.textContent.toLowerCase();
+    if (itemName.includes(lowerCaseQuery)) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  }
+}
+
 // Function to show ingredients
 function showIngredients(ingredients) {
   for (const ingredient of ingredients) {
@@ -224,7 +238,6 @@ async function fetchRecipes() {
   });
 
   if (response.ok) {
-    // Show the recipes
     const recipes = await response.json();
     global.recipes = recipes;
 
@@ -240,8 +253,10 @@ function prepareHandles() {
   global.selectedIngredientsArray = document.querySelector('.selectedIngredientsArray');
   global.submitIngredientsButton = document.querySelector('#submitIngredientsButton');
   global.noRecipe = document.querySelector('.noRecipe');
-
   global.recipeContainer = document.querySelector('.recipeContainer');
+
+  global.recipeSearch = document.querySelector('#recipeSearch');
+  global.ingredientSearch = document.querySelector('#ingredientSearch');
 
   global.navLinks = document.querySelectorAll('.nav-link');
 }
@@ -255,6 +270,7 @@ function addEventListeners() {
     });
   });
 
+  global.recipeSearch.addEventListener('input', () => searchList(global.recipeSearch.value, global.recipeContainer));
   global.submitIngredientsButton.addEventListener('click', fetchRecipes);
 }
 
