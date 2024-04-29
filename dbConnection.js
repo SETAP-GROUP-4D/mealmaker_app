@@ -29,7 +29,16 @@ const dbConn = init();
 
 export async function sendIngredients() {
   const db = await dbConn;
-  const ingredients = await db.all('SELECT * FROM INGREDIENT ORDER BY INGREDIENT_NAME ASC');
+  const ingredients = await db.all(`
+    SELECT INGREDIENT.ingredient_name, INGREDIENT.category 
+    FROM INGREDIENT 
+    INNER JOIN (
+      SELECT DISTINCT ingredient_name 
+      FROM INGREDIENT
+    ) AS DISTINCT_INGREDIENTS 
+    ON INGREDIENT.ingredient_name = DISTINCT_INGREDIENTS.ingredient_name 
+    ORDER BY INGREDIENT.ingredient_name ASC
+  `);
   return ingredients;
 }
 
