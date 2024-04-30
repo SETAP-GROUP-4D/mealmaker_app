@@ -60,4 +60,13 @@ function removeIngredient(ingredientBtn) {
   console.log(global.ingredientArray);
 }
 
-module.exports = { fetchRecipes, fetchAllIngredients, removeIngredient };
+/* eslint-disable no-undef */
+async function sendIngredients() {
+  // eslint-disable-next-line no-undef
+  const db = await dbConn;
+  const ingredients = await db.all('SELECT * FROM INGREDIENT ORDER BY INGREDIENT_NAME ASC');
+  return ingredients;
+}
+
+
+module.exports = { fetchRecipes, fetchAllIngredients, removeIngredient, sendIngredients };

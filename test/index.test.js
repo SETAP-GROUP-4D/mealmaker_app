@@ -139,3 +139,30 @@ describe('removeIngredient', () => {
     expect(global.console.log).toHaveBeenCalledWith(['ingredient1', 'ingredient2', 'ingredient3']);
   });
 });
+
+/* eslint-disable no-undef */
+// Import the function to test
+const { sendIngredients } = require('./food.js');
+
+// Mocking the database connection
+const mockDbConn = {
+  all: jest.fn(() => Promise.resolve([{ id: 1, name: 'Ingredient 1' }, { id: 2, name: 'Ingredient 2' }])),
+};
+
+describe('sendIngredients function', () => {
+  it('should return a list of ingredients ordered by name', async () => {
+    // Mocking the dbConn
+    const originalDbConn = global.dbConn;
+    global.dbConn = Promise.resolve(mockDbConn);
+
+    // Call the function
+    const result = await sendIngredients();
+
+    // Expectations
+    expect(result).toEqual([{ id: 1, name: 'Ingredient 1' }, { id: 2, name: 'Ingredient 2' }]);
+    expect(mockDbConn.all).toHaveBeenCalledWith('SELECT * FROM INGREDIENT ORDER BY INGREDIENT_NAME ASC');
+
+    // Restore original dbConn
+    global.dbConn = originalDbConn;
+  });
+});
