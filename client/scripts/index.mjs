@@ -75,6 +75,41 @@ function router() {
   match.route.view();
 }
 
+// Function to search ingredients
+function searchIngredients() {
+  const ingredientSectionsContainer = document.querySelectorAll('.categoryIngredients');
+  const lowerCaseQuery = global.ingredientSearch.value.toLowerCase();
+  ingredientSectionsContainer.forEach(container => {
+    const containerSection = container.querySelector('section');
+    const items = Array.from(containerSection.children);
+    let containerHasMatchingItem = false;
+    for (const item of items) {
+      const itemName = item.textContent.toLowerCase();
+      if (itemName.includes(lowerCaseQuery)) {
+        item.style.display = '';
+        containerHasMatchingItem = true;
+      } else {
+        item.style.display = 'none';
+      }
+    }
+    container.style.display = containerHasMatchingItem ? '' : 'none';
+  });
+}
+
+// Function to search recipes
+function searchRecipes(query, list) {
+  const lowerCaseQuery = query.toLowerCase();
+  const items = Array.from(list.children);
+  for (const item of items) {
+    const itemName = item.textContent.toLowerCase();
+    if (itemName.includes(lowerCaseQuery)) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  }
+}
+
 // Function to remove an ingredient
 function removeIngredient(ingredientBtn) {
   // Get the text content of the button
@@ -224,7 +259,6 @@ async function fetchRecipes() {
   });
 
   if (response.ok) {
-    // Show the recipes
     const recipes = await response.json();
     global.recipes = recipes;
 
@@ -240,8 +274,10 @@ function prepareHandles() {
   global.selectedIngredientsArray = document.querySelector('.selectedIngredientsArray');
   global.submitIngredientsButton = document.querySelector('#submitIngredientsButton');
   global.noRecipe = document.querySelector('.noRecipe');
-
   global.recipeContainer = document.querySelector('.recipeContainer');
+
+  global.recipeSearch = document.querySelector('#recipeSearch');
+  global.ingredientSearch = document.querySelector('#ingredientSearch');
 
   global.navLinks = document.querySelectorAll('.nav-link');
 }
@@ -255,6 +291,8 @@ function addEventListeners() {
     });
   });
 
+  global.recipeSearch.addEventListener('input', () => searchRecipes(global.recipeSearch.value, global.recipeContainer));
+  global.ingredientSearch.addEventListener('input', searchIngredients);
   global.submitIngredientsButton.addEventListener('click', fetchRecipes);
 }
 
