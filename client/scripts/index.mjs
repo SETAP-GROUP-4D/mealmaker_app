@@ -244,6 +244,56 @@ function ingredientConfirmation(recipes) {
   }
 }
 
+// function optimalIngredientsAlgoritm(recipes) {
+//   let newIngredientArray = [...global.ingredientArray];
+//   let removedIngredients = [];
+//   let ingredientsToRemove = 1;
+
+//   const processIngredients = async (ingredientsArray) => {
+//     const fetchedRecipes = await fetchRecipes(ingredientsArray);
+//     handleRecipeResponse(fetchedRecipes);
+//   };
+
+//   const removeIngredients = (count) => {
+//     const removedIngredientsThisIteration = [];
+//     for (let i = 0; i < count; i++) {
+//       const removedIngredient = newIngredientArray.shift();
+//       if (removedIngredient) {
+//         removedIngredientsThisIteration.push(removedIngredient);
+//       }
+//     }
+//     removedIngredients.push(...removedIngredientsThisIteration);
+//   };
+
+//   const handleRecipeResponse = (recipes) => {
+//     if (recipes.length === 0) {
+//       if (newIngredientArray.length === 0) {
+//         // Base case: no more ingredients left to remove
+//         console.log('No recipes found with the given ingredients');
+//       } else {
+//         const removedIngredientsThisIteration = removedIngredients.splice(-ingredientsToRemove);
+//         newIngredientArray = [...newIngredientArray, ...removedIngredientsThisIteration];
+//         removeIngredients(ingredientsToRemove);
+//         ingredientsToRemove += 1;
+//         processIngredients(newIngredientArray);
+//       }
+//     } else {
+//       ingredientConfirmation(recipes);
+//     }
+//   };
+
+//   if (recipes.length === 0) {
+//     if (newIngredientArray.length === 1) {
+//       processIngredients(newIngredientArray);
+//     } else {
+//       removeIngredients(1);
+//       processIngredients(newIngredientArray);
+//     }
+//   } else {
+//     handleRecipeResponse(recipes);
+//   }
+// }
+
 // Function to fetch recipes
 async function fetchRecipes() {
   console.log(global.ingredientArray);
@@ -263,6 +313,7 @@ async function fetchRecipes() {
     global.recipes = recipes;
 
     ingredientConfirmation(recipes);
+    // optimalIngredientsAlgoritm(recipes);
   } else {
     console.log('failed to send ingredients', response);
   }
