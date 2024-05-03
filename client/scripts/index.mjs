@@ -195,19 +195,74 @@ async function fetchAllIngredients() {
 }
 
 function viewRecipe(recipeObj) {
-  // const mealSec = document.createElement('section');
-  // const mealImg = document.createElement('img');
-  // const mealTitle = document.createElement('h2');
-  // const mealCalories = document.createElement('p');
-  // const mealIngredients = document.createElement('section');
+  global.recipeDetailsContainer.innerHTML = '';
 
-  console.log(recipeObj, 'recipeObj');
+  const mealImg = document.createElement('img');
+  const mealTitle = document.createElement('h2');
+  const ingredientsHeader = document.createElement('h2');
+  const allergiesHeader = document.createElement('h2');
+  const healthInformationHeader = document.createElement('h2');
+
+
+
+  const mealCalories = document.createElement('p');
+  const mealIngredients = document.createElement('ol');
+  const mealAllergies = document.createElement('ol');
+  const healthInformation = document.createElement('ol');
+  const viewInstructionsLink = document.createElement('a');
+
+  mealImg.src = recipeObj.image;
+  mealTitle.textContent = recipeObj.label;
+  healthInformationHeader.textContent = "Health Information";
+  mealCalories.textContent = 'Calories: ' + Math.round(recipeObj.calories) + ' cal';
+
+  viewInstructionsLink.href = recipeObj.url;
+  viewInstructionsLink.textContent = 'View Instructions';
+
+  ingredientsHeader.textContent = 'Ingredients';
+  allergiesHeader.textContent = 'Allergies';
+  viewInstructionsLink.target = '_blank';
+
+
+
+  //appends recipe instructions as a list 
+  for (const line of recipeObj.ingredientLines) {
+    const li = document.createElement('li');
+    li.textContent = line;
+    mealIngredients.append(li);
+  }
+
+  //appends recipe allegeries as a list 
+  for (const line of recipeObj.cautions) {
+    const li = document.createElement('li');
+    li.textContent = line;
+    mealAllergies.append(li);
+  }
+
+  //appends health information
+  if (recipeObj.dietLabels.length !== 0) {
+    for (const line of recipeObj.dietLabels) {
+      const li = document.createElement('li');
+      li.textContent = line;
+      healthInformation.append(li);
+    }
+  } else {
+    for (let i = 0; i < 3; i++) {
+      const li = document.createElement('li');
+      li.textContent = recipeObj.healthLabels[i];
+      healthInformation.append(li);
+    }
+  }
+
+  global.recipeDetailsContainer.append(mealImg, mealTitle, ingredientsHeader,
+    mealIngredients, mealCalories, allergiesHeader, mealAllergies, healthInformationHeader,
+    healthInformation, viewInstructionsLink);
 }
 
 // Function to show all recipes
 function showAllRecipes(recipes) {
   console.log(recipes, 'recipes');
-  global.recipeContainer.innerHTML = '';
+  global.recipesContainer.innerHTML = '';
 
   for (const recipeObject of recipes) {
     const recipeSec = document.createElement('section');
@@ -224,7 +279,7 @@ function showAllRecipes(recipes) {
       viewRecipe(recipeObject);
       navigateTo('/viewrecipe');
     });
-    global.recipeContainer.append(recipeSec);
+    global.recipesContainer.append(recipeSec);
   }
 }
 
@@ -325,7 +380,10 @@ function prepareHandles() {
   global.selectedIngredientsArray = document.querySelector('.selectedIngredientsArray');
   global.submitIngredientsButton = document.querySelector('#submitIngredientsButton');
   global.noRecipe = document.querySelector('.noRecipe');
-  global.recipeContainer = document.querySelector('.recipeContainer');
+  global.recipesContainer = document.querySelector('.recipesContainer');
+  global.recipeDetailsContainer = document.querySelector('.recipeDetailsContainer');
+
+
 
   global.recipeSearch = document.querySelector('#recipeSearch');
   global.ingredientSearch = document.querySelector('#ingredientSearch');
