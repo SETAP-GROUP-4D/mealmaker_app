@@ -43,36 +43,12 @@ function handleSignupSection() {
 function handleViewRecipeSection() {
   showSection('#viewRecipePage');
 }
-const filters = document.querySelectorAll('.filter')
-filters.forEach(filter => {
-  filter.addEventListener('click', function () {
-    filterMeals(filter.id)
-  })
-})
 
-function filterMeals (filter) {
-  let arr = []
-  console.log(global.recipes[0].totalTime);
-  if (filter == 'cookingTimeFilter') {
-    global.recipes.forEach(eachMeal => {
-      arr.push(eachMeal.totalTime);
-      arr.sort((a, b) => a - b)
-    })
-  }
-  else if(filter == 'numberOfIngredients') {
-    global.recipes.forEach(eachMeal => {
-      arr.push(eachMeal.ingredients.length);
-      arr.sort((a, b) => a - b)
-    })
-  }
-  else if (filter == 'caloriesCount') {
-    global.recipes.forEach(eachMeal => {
-      arr.push(eachMeal.calories);
-      arr.sort((a, b) => a - b)
-    })
-  }
-  console.log(arr)
+// Function to handle the bookmarks section
+function handleBookmarksSection() {
+  showSection('#bookmarksPage');
 }
+
 // Router function to handle different routes
 function router() {
   const routes = [
@@ -104,6 +80,36 @@ function router() {
   // Call the view function of the matched route
   match.route.view();
 }
+
+const filters = document.querySelectorAll('.filter');
+filters.forEach(filter => {
+  filter.addEventListener('click', function () {
+    filterMeals(filter.id);
+  });
+});
+
+function filterMeals(filter) {
+  const arr = [];
+  console.log(global.recipes[0].totalTime);
+  if (filter == 'cookingTimeFilter') {
+    global.recipes.forEach(eachMeal => {
+      arr.push(eachMeal.totalTime);
+      arr.sort((a, b) => a - b);
+    });
+  } else if (filter == 'numberOfIngredients') {
+    global.recipes.forEach(eachMeal => {
+      arr.push(eachMeal.ingredients.length);
+      arr.sort((a, b) => a - b);
+    });
+  } else if (filter == 'caloriesCount') {
+    global.recipes.forEach(eachMeal => {
+      arr.push(eachMeal.calories);
+      arr.sort((a, b) => a - b);
+    });
+  }
+  console.log(arr);
+}
+
 
 // Function to search ingredients
 function searchIngredients() {
