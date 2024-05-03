@@ -5,11 +5,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// this is for user authentication
-// import uuid from 'uuid-random';
-// const bcrypt = require('bcrypt');
-// const saltRounds = 10;
-
 // Initialize the database connection
 async function init() {
   const db = await open({
@@ -23,9 +18,23 @@ async function init() {
 
 const dbConn = init();
 
-// export async function createUser(username, password) {}
+export async function createUser(email, password) {
+  const db = await dbConn;
+  const result = await db.run(`
+    INSERT INTO ACCOUNT (ACCOUNT_ID, EMAIL, PASSWORD) 
+    VALUES (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-a' || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6))), ?, ?)
+  `, email, password);
+  return result;
+}
 
-// export async function authenticateUser(username, password) {}
+export async function authenticateUser(email) {
+  const db = await dbConn;
+  const result = await db.get(`
+    SELECT ACCOUNT_ID AS id, PASSWORD AS hashedPassword
+    FROM ACCOUNT
+    WHERE EMAIL = ?`, email);
+  return result;
+}
 
 export async function sendIngredients() {
   const db = await dbConn;
