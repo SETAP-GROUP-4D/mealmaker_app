@@ -56,19 +56,22 @@ function filterMeals (filter) {
   if (filter == 'cookingTimeFilter') {
     global.recipes.forEach(eachMeal => {
       arr.push(eachMeal.totalTime);
+      arr.sort((a, b) => a - b)
     })
   }
   else if(filter == 'numberOfIngredients') {
     global.recipes.forEach(eachMeal => {
-      console.log(eachMeal.ingredients.length);
+      arr.push(eachMeal.ingredients.length);
+      arr.sort((a, b) => a - b)
     })
   }
   else if (filter == 'caloriesCount') {
     global.recipes.forEach(eachMeal => {
-      console.log(eachMeal.calories);
+      arr.push(eachMeal.calories);
+      arr.sort((a, b) => a - b)
     })
   }
-  console.log(arr.sort())
+  console.log(arr)
 }
 // Router function to handle different routes
 function router() {
