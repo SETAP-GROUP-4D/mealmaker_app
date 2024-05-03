@@ -43,7 +43,33 @@ function handleSignupSection() {
 function handleViewRecipeSection() {
   showSection('#viewRecipePage');
 }
+const filters = document.querySelectorAll('.filter')
+filters.forEach(filter => {
+  filter.addEventListener('click', function () {
+    filterMeals(filter.id)
+  })
+})
 
+function filterMeals (filter) {
+  let arr = []
+  console.log(global.recipes[0].totalTime);
+  if (filter == 'cookingTimeFilter') {
+    global.recipes.forEach(eachMeal => {
+      arr.push(eachMeal.totalTime);
+    })
+  }
+  else if(filter == 'numberOfIngredients') {
+    global.recipes.forEach(eachMeal => {
+      console.log(eachMeal.ingredients.length);
+    })
+  }
+  else if (filter == 'caloriesCount') {
+    global.recipes.forEach(eachMeal => {
+      console.log(eachMeal.calories);
+    })
+  }
+  console.log(arr.sort())
+}
 // Router function to handle different routes
 function router() {
   const routes = [

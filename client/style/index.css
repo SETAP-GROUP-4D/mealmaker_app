@@ -306,7 +306,10 @@ div {
 #guest_signup {
     margin-bottom: 40px;
 }
-
+.recipeContainer {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
 
 /* Set the styles for the body element when the max-width is 400px */
 @media (max-width: 400px) {
