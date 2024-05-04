@@ -17,19 +17,13 @@
 
     <section id="loginPage" class="page hide">
         <div class="loginSection">
-            <!-- <div class="page_header">
-                    <div ><a href="home.html">Home</a></div>
-                    <div><a>About Us</a></div>
-                    <div><a>Contact Us</a></div>
-                </ul>
-            </div> -->
             <!--Log In Section for existing Users.-->
             <h2 id="login_title"><b><u>Log In</u></b></h2>
             <p id="loginErrorMsg"> </p>
             <section id="userInputNameForm">
-                <input id='loginInput' value="" placeholder="Username or Email" type="text" required>
-                <input id='loginInput_password' value="" placeholder="Password" type="text" required>
-                <input id='loginButton' type="submit" class="btn btn-primary" value="SUBMIT">
+                <input id='loginInput_email' value="" placeholder="Email" type="text" required>
+                <input id='loginInput_password' value="" placeholder="Password" type="password" required>
+                <input id='loginButton' type="submit"  class="btn btn-primary" value="Log In">
             </section>
 
             <div id="guest_signup">
@@ -44,10 +38,9 @@
         <h2 id="signup_title"><b><u>Sign Up</u></b></h2>
         <p id="signupErrorMsg"> </p>
         <section id="signupForm">
-            <input type="text" id="new_username" placeholder="Username" required>
+            <input type="text" id="new_email" placeholder="Email" required>
             <input type="password" id="new_password" placeholder="Password" required>
-            <input type="password" id="confirm_password" placeholder="Confirm Password" required>
-            <button id="sigupBtn" type="submit">Sign Up</button>
+            <input id='signupPageBtn' type="submit"  class="btn btn-primary" value="Sign Up">
         </section>
     </section>
     
@@ -58,16 +51,26 @@
             <input id="recipeSearch" placeholder="Find Recipe" type="text">
         </section>
         <h2 id="recipeOptionMessage">Available Meals</h2>
-        <section class="recipeContainer">
+        <div id="mealFilters"> 
+            <button class="filter" id="cookingTimeFilter">Cooking Time</button> 
+            <button class="filter" id="numberOfIngredients">Number of Ingredients</button> 
+            <button class="filter" id="caloriesCount">Calories</button> 
+        </div>
+        <section class="recipesContainer">
         </section>
     </section>
-
+ 
 
     <section id="viewRecipePage" class="page hide">
         <button class="bookmarkBtn">Bookmark</button>
-        <section class="recipeViewContainer"></section>
+        <section class="recipeDetailsContainer"></section>
     </section>
 
+    <section id="bookmarkPage" class="page hide">
+        <section class="bookmarkContainer">
+            <h2>Bookmarked Recipes</h2>
+        </section>
+    </section>
 
     <section id="ingredientsPage" class="page hide">
         <button class="userProfile"> 

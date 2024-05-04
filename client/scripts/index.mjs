@@ -44,6 +44,11 @@ function handleViewRecipeSection() {
   showSection('#viewRecipePage');
 }
 
+// Function to handle the bookmarks section
+function handleBookmarksSection() {
+  showSection('#bookmarksPage');
+}
+
 // Router function to handle different routes
 function router() {
   const routes = [
@@ -52,6 +57,7 @@ function router() {
     { path: '/ingredients', view: () => handleIngredientsSection() },
     { path: '/recipes', view: () => handleRecipesSection() },
     { path: '/viewrecipe', view: () => handleViewRecipeSection() },
+    { path: '/bookmarks', view: () => handleBookmarksSection() },
   ];
 
   // Test each route for potential match
@@ -74,6 +80,36 @@ function router() {
   // Call the view function of the matched route
   match.route.view();
 }
+
+const filters = document.querySelectorAll('.filter');
+filters.forEach(filter => {
+  filter.addEventListener('click', function () {
+    filterMeals(filter.id);
+  });
+});
+
+function filterMeals(filter) {
+  const arr = [];
+  console.log(global.recipes[0].totalTime);
+  if (filter == 'cookingTimeFilter') {
+    global.recipes.forEach(eachMeal => {
+      arr.push(eachMeal.totalTime);
+      arr.sort((a, b) => a - b);
+    });
+  } else if (filter == 'numberOfIngredients') {
+    global.recipes.forEach(eachMeal => {
+      arr.push(eachMeal.ingredients.length);
+      arr.sort((a, b) => a - b);
+    });
+  } else if (filter == 'caloriesCount') {
+    global.recipes.forEach(eachMeal => {
+      arr.push(eachMeal.calories);
+      arr.sort((a, b) => a - b);
+    });
+  }
+  console.log(arr);
+}
+
 
 // Function to search ingredients
 function searchIngredients() {
@@ -195,19 +231,72 @@ async function fetchAllIngredients() {
 }
 
 function viewRecipe(recipeObj) {
-  // const mealSec = document.createElement('section');
-  // const mealImg = document.createElement('img');
-  // const mealTitle = document.createElement('h2');
-  // const mealCalories = document.createElement('p');
-  // const mealIngredients = document.createElement('section');
+  global.recipeDetailsContainer.innerHTML = '';
 
-  console.log(recipeObj, 'recipeObj');
+  const mealImg = document.createElement('img');
+  const mealTitle = document.createElement('h2');
+  const ingredientsHeader = document.createElement('h2');
+  const allergiesHeader = document.createElement('h2');
+  const healthInformationHeader = document.createElement('h2');
+
+
+  const mealCalories = document.createElement('p');
+  const mealIngredients = document.createElement('ol');
+  const mealAllergies = document.createElement('ol');
+  const healthInformation = document.createElement('ol');
+  const viewInstructionsLink = document.createElement('a');
+
+  mealImg.src = recipeObj.image;
+  mealTitle.textContent = recipeObj.label;
+  healthInformationHeader.textContent = 'Health Information';
+  mealCalories.textContent = 'Calories: ' + Math.round(recipeObj.calories) + ' cal';
+
+  viewInstructionsLink.href = recipeObj.url;
+  viewInstructionsLink.textContent = 'View Instructions';
+
+  ingredientsHeader.textContent = 'Ingredients';
+  allergiesHeader.textContent = 'Allergies';
+  viewInstructionsLink.target = '_blank';
+
+
+  // appends recipe instructions as a list
+  for (const line of recipeObj.ingredientLines) {
+    const li = document.createElement('li');
+    li.textContent = line;
+    mealIngredients.append(li);
+  }
+
+  // appends recipe allegeries as a list
+  for (const line of recipeObj.cautions) {
+    const li = document.createElement('li');
+    li.textContent = line;
+    mealAllergies.append(li);
+  }
+
+  // appends health information
+  if (recipeObj.dietLabels.length !== 0) {
+    for (const line of recipeObj.dietLabels) {
+      const li = document.createElement('li');
+      li.textContent = line;
+      healthInformation.append(li);
+    }
+  } else {
+    for (let i = 0; i < 3; i++) {
+      const li = document.createElement('li');
+      li.textContent = recipeObj.healthLabels[i];
+      healthInformation.append(li);
+    }
+  }
+
+  global.recipeDetailsContainer.append(mealImg, mealTitle, ingredientsHeader,
+    mealIngredients, mealCalories, allergiesHeader, mealAllergies, healthInformationHeader,
+    healthInformation, viewInstructionsLink);
 }
 
 // Function to show all recipes
 function showAllRecipes(recipes) {
   console.log(recipes, 'recipes');
-  global.recipeContainer.innerHTML = '';
+  global.recipesContainer.innerHTML = '';
 
   for (const recipeObject of recipes) {
     const recipeSec = document.createElement('section');
@@ -224,7 +313,7 @@ function showAllRecipes(recipes) {
       viewRecipe(recipeObject);
       navigateTo('/viewrecipe');
     });
-    global.recipeContainer.append(recipeSec);
+    global.recipesContainer.append(recipeSec);
   }
 }
 
@@ -244,13 +333,63 @@ function ingredientConfirmation(recipes) {
   }
 }
 
+// function optimalIngredientsAlgoritm(recipes) {
+//   let newIngredientArray = [...global.ingredientArray];
+//   let removedIngredients = [];
+//   let ingredientsToRemove = 1;
+
+//   const processIngredients = async (ingredientsArray) => {
+//     const fetchedRecipes = await fetchRecipes(ingredientsArray);
+//     handleRecipeResponse(fetchedRecipes);
+//   };
+
+//   const removeIngredients = (count) => {
+//     const removedIngredientsThisIteration = [];
+//     for (let i = 0; i < count; i++) {
+//       const removedIngredient = newIngredientArray.shift();
+//       if (removedIngredient) {
+//         removedIngredientsThisIteration.push(removedIngredient);
+//       }
+//     }
+//     removedIngredients.push(...removedIngredientsThisIteration);
+//   };
+
+//   const handleRecipeResponse = (recipes) => {
+//     if (recipes.length === 0) {
+//       if (newIngredientArray.length === 0) {
+//         // Base case: no more ingredients left to remove
+//         console.log('No recipes found with the given ingredients');
+//       } else {
+//         const removedIngredientsThisIteration = removedIngredients.splice(-ingredientsToRemove);
+//         newIngredientArray = [...newIngredientArray, ...removedIngredientsThisIteration];
+//         removeIngredients(ingredientsToRemove);
+//         ingredientsToRemove += 1;
+//         processIngredients(newIngredientArray);
+//       }
+//     } else {
+//       ingredientConfirmation(recipes);
+//     }
+//   };
+
+//   if (recipes.length === 0) {
+//     if (newIngredientArray.length === 1) {
+//       processIngredients(newIngredientArray);
+//     } else {
+//       removeIngredients(1);
+//       processIngredients(newIngredientArray);
+//     }
+//   } else {
+//     handleRecipeResponse(recipes);
+//   }
+// }
+
 // Function to fetch recipes
 async function fetchRecipes() {
   console.log(global.ingredientArray);
 
   // Send the ingredientArray as payload
   const payload = global.ingredientArray;
-  const response = await fetch('data/ingredients', {
+  const response = await fetch('data/recipes', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -263,8 +402,58 @@ async function fetchRecipes() {
     global.recipes = recipes;
 
     ingredientConfirmation(recipes);
+    // optimalIngredientsAlgoritm(recipes);
   } else {
     console.log('failed to send ingredients', response);
+  }
+}
+
+async function sendLoginDetails() {
+  const email = global.loginEmail.value;
+  const password = global.loginPassword.value;
+
+  const payload = { email, password };
+  const response = await fetch('data/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(error => {
+    console.error('Failed to fetch:', error);
+  });
+
+  if (response.ok) {
+    const user = await response.json();
+    console.log('User logged in successfully');
+    localStorage.setItem('currentUserId', user.ACCOUNT_ID);
+    console.log(user.ACCOUNT_ID);
+    global.loginEmail.value = '';
+    global.loginPassword.value = '';
+    navigateTo('/ingredients');
+  } else {
+    console.log('failed to login', response);
+  }
+}
+
+async function sendSignupDetails() {
+  const email = global.signupEmail.value;
+  const password = global.signupPassword.value;
+
+  const payload = { email, password };
+  const response = await fetch('data/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(error => {
+    console.error('Failed to fetch:', error);
+  });
+
+  if (response.ok) {
+    console.log('User created successfully');
+    global.signupEmail.value = '';
+    global.signupPassword.value = '';
+    navigateTo('/');
+  } else {
+    console.log('failed to create user', response);
   }
 }
 
@@ -274,7 +463,18 @@ function prepareHandles() {
   global.selectedIngredientsArray = document.querySelector('.selectedIngredientsArray');
   global.submitIngredientsButton = document.querySelector('#submitIngredientsButton');
   global.noRecipe = document.querySelector('.noRecipe');
-  global.recipeContainer = document.querySelector('.recipeContainer');
+  global.recipesContainer = document.querySelector('.recipesContainer');
+  global.recipeDetailsContainer = document.querySelector('.recipeDetailsContainer');
+
+
+  global.loginEmail = document.querySelector('#loginInput_email');
+  global.loginPassword = document.querySelector('#loginInput_password');
+  global.loginBtn = document.querySelector('#loginButton');
+
+  global.signupEmail = document.querySelector('#new_email');
+  global.signupPassword = document.querySelector('#new_password');
+  global.signupConfirmPassword = document.querySelector('#confirm_password');
+  global.signupBtn = document.querySelector('#signupPageBtn');
 
   global.recipeSearch = document.querySelector('#recipeSearch');
   global.ingredientSearch = document.querySelector('#ingredientSearch');
@@ -294,6 +494,9 @@ function addEventListeners() {
   global.recipeSearch.addEventListener('input', () => searchRecipes(global.recipeSearch.value, global.recipeContainer));
   global.ingredientSearch.addEventListener('input', searchIngredients);
   global.submitIngredientsButton.addEventListener('click', fetchRecipes);
+
+  global.signupBtn.addEventListener('click', sendSignupDetails);
+  global.loginBtn.addEventListener('click', sendLoginDetails);
 }
 
 // Event listener for popstate event

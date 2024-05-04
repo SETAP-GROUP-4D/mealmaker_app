@@ -289,14 +289,14 @@ div {
 }
 
 /* Set the styles for the loginButton, guest_button, signup_button, signupBtn, userBookmarksBtn, and userSelectBtn ids */
-#loginButton, #guest_button, #signup_button, #signupBtn, #userBookmarksBtn, #userSelectBtn{
+#loginButton, #guest_button, #signup_button, #signupPageBtn, #userBookmarksBtn, #userSelectBtn{
     padding: 10px 25px 10px 25px; /* Adjusted padding for better readability */
     background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(116, 116, 116));
     transition: ease .8s;
 }
 
 /* Set the styles for the loginButton, guest_button, signup_button, signupBtn, userBookmarksBtn, and userSelectBtn ids when hovered */
-#loginButton:hover, #guest_button:hover, #signup_button:hover, #signupBtn:hover, #userBookmarksBtn:hover, #userSelectBtn:hover{
+#loginButton:hover, #guest_button:hover, #signup_button:hover, #signupPageBtn:hover, #userBookmarksBtn:hover, #userSelectBtn:hover{
     cursor: pointer;
     font-size: 22px;
     box-shadow: 1px 1px 1px 1px black;
@@ -306,7 +306,10 @@ div {
 #guest_signup {
     margin-bottom: 40px;
 }
-
+.recipeContainer {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
 
 /* Set the styles for the body element when the max-width is 400px */
 @media (max-width: 400px) {
