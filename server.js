@@ -19,6 +19,12 @@ async function getRecipes(req, res) {
 
 async function postUser(req, res) {
   try {
+    const existingUser = await db.getUser(req.body.email);
+    if (existingUser) {
+      res.status(400).json({ message: 'Email already in use' });
+      return;
+    }
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const result = await db.createUser(req.body.email, hashedPassword);
     res.json({ ACCOUNT_ID: result.lastID });
@@ -27,9 +33,9 @@ async function postUser(req, res) {
   }
 }
 
-async function getUser(req, res) {
+async function authenticateUser(req, res) {
   try {
-    const user = await db.authenticateUser(req.body.email);
+    const user = await db.getUser(req.body.email);
     if (user && await bcrypt.compare(req.body.password, user.hashedPassword)) {
       res.json({ ACCOUNT_ID: user.id });
     } else {
@@ -42,8 +48,8 @@ async function getUser(req, res) {
 
 app.get('/data/ingredients', getIngredients);
 app.post('/data/recipes', express.json(), getRecipes);
-app.post('/data/users', express.json(), postUser);
-app.post('/data/users', express.json(), getUser);
+app.post('/data/users/register', express.json(), postUser);
+app.post('/data/users/login', express.json(), authenticateUser);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve('client', 'index.html'));

@@ -1,6 +1,12 @@
 // Global object to store data
 const global = { ingredientArray: [] };
 
+function showRegisteredUserNav() {
+  if (localStorage.getItem('currentUserId')) {
+    global.registeredUserNav.classList.remove('hide');
+  }
+}
+
 // Function to navigate to a specific URL
 function navigateTo(url) {
   history.pushState(null, null, url);
@@ -20,17 +26,27 @@ function showSection(selector) {
 
 // Function to handle the login section
 function handleLoginSection() {
+  if (global.registeredUserNav) {
+    global.registeredUserNav.classList.add('hide');
+  }
+
+  localStorage.clear();
   showSection('#loginPage');
 }
 
 // Function to handle the ingredients section
 async function handleIngredientsSection() {
-  await fetchAllIngredients();
+  if (!(localStorage.getItem('Ingredients'))) {
+    await showIngredients();
+    await fetchBookmarks();
+  }
+  showRegisteredUserNav();
   showSection('#ingredientsPage');
 }
 
 // Function to handle the recipes section
 function handleRecipesSection() {
+  showRegisteredUserNav();
   showSection('#recipePage');
 }
 
@@ -41,12 +57,17 @@ function handleSignupSection() {
 
 // Function to handle the view recipe section
 function handleViewRecipeSection() {
+  showRegisteredUserNav();
   showSection('#viewRecipePage');
 }
 
 // Function to handle the bookmarks section
 function handleBookmarksSection() {
-  showSection('#bookmarksPage');
+  if (localStorage.getItem('currentUserId')) {
+    showSection('#bookmarksPage');
+  } else {
+    navigateTo('/');
+  }
 }
 
 // Router function to handle different routes
@@ -197,8 +218,17 @@ function selectIngredient(ingredient) {
   console.log(global.ingredientArray);
 }
 
+async function getIngredientsFromSource() {
+  if (!(localStorage.getItem('ingredients'))) {
+    return await fetchAllIngredientsFromServer();
+  } else {
+    return JSON.parse(localStorage.getItem('ingredients'));
+  }
+}
+
 // Function to show ingredients
-function showIngredients(ingredients) {
+async function showIngredients() {
+  const ingredients = await getIngredientsFromSource();
   for (const ingredient of ingredients) {
     // Create a button for each ingredient
     const btn = document.createElement('button');
@@ -218,7 +248,7 @@ function showIngredients(ingredients) {
 }
 
 // Function to fetch all ingredients
-async function fetchAllIngredients() {
+async function fetchAllIngredientsFromServer() {
   const response = await fetch('data/ingredients');
   let ingredients;
   if (response.ok) {
@@ -227,7 +257,8 @@ async function fetchAllIngredients() {
     console.log('failed to load ingredients', response);
   }
   console.log(ingredients);
-  showIngredients(ingredients);
+  localStorage.setItem('ingredients', JSON.stringify(ingredients));
+  return ingredients;
 }
 
 function viewRecipe(recipeObj) {
@@ -297,7 +328,7 @@ function viewRecipe(recipeObj) {
 function showAllRecipes(recipes) {
   console.log(recipes, 'recipes');
   global.recipesContainer.innerHTML = '';
-
+  global.recipesContainer.append('Selected Ingredients: ' + global.ingredientArray.join(', '));
   for (const recipeObject of recipes) {
     const recipeSec = document.createElement('section');
     const recipeImg = document.createElement('img');
@@ -408,12 +439,17 @@ async function fetchRecipes() {
   }
 }
 
-async function sendLoginDetails() {
-  const email = global.loginEmail.value;
-  const password = global.loginPassword.value;
+// Function to show bookmarks
 
-  const payload = { email, password };
-  const response = await fetch('data/users', {
+// Function to fetch bookmarks
+async function fetchBookmarks() {
+
+}
+
+async function saveRecipe(recipe) {
+  const userId = localStorage.getItem('currentUserId');
+  const payload = { userId, recipe };
+  const response = await fetch('data/bookmarks', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -422,38 +458,80 @@ async function sendLoginDetails() {
   });
 
   if (response.ok) {
-    const user = await response.json();
-    console.log('User logged in successfully');
-    localStorage.setItem('currentUserId', user.ACCOUNT_ID);
-    console.log(user.ACCOUNT_ID);
-    global.loginEmail.value = '';
-    global.loginPassword.value = '';
-    navigateTo('/ingredients');
+    console.log('Recipe saved successfully');
   } else {
-    console.log('failed to login', response);
+    console.log('failed to save recipe', response);
+  }
+}
+
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+async function sendLoginDetails() {
+  if (!isValidEmail(global.loginEmail.value)) {
+    global.invalidLoginEmail.textContent = 'Please enter a valid email address.';
+  } else {
+    const email = global.loginEmail.value;
+    const password = global.loginPassword.value;
+
+    const payload = { email, password };
+    const response = await fetch('data/users/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(error => {
+      console.error('Failed to fetch:', error);
+    });
+
+    if (response.ok) {
+      const user = await response.json();
+      console.log('User ID sent');
+      console.log(user, 'from database');
+
+      // clear local storage
+      localStorage.clear();
+      localStorage.setItem('currentUserId', user.ACCOUNT_ID);
+      global.invalidDetails.textContent = '';
+      global.loginEmail.value = '';
+      global.loginPassword.value = '';
+      navigateTo('/ingredients');
+    } else if (response.status === 401) {
+      global.invalidDetails.textContent = 'Invalid email or password. Please check your credentials and try again.';
+    }
   }
 }
 
 async function sendSignupDetails() {
-  const email = global.signupEmail.value;
-  const password = global.signupPassword.value;
-
-  const payload = { email, password };
-  const response = await fetch('data/users', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  }).catch(error => {
-    console.error('Failed to fetch:', error);
-  });
-
-  if (response.ok) {
-    console.log('User created successfully');
-    global.signupEmail.value = '';
-    global.signupPassword.value = '';
-    navigateTo('/');
+  if (!isValidEmail(global.signupEmail.value)) {
+    global.invalidSignupEmail.textContent = 'Please enter a valid email address.';
   } else {
-    console.log('failed to create user', response);
+    const email = global.signupEmail.value;
+    const password = global.signupPassword.value;
+
+    const payload = { email, password };
+    const response = await fetch('data/users/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(error => {
+      console.error('Failed to fetch:', error);
+    });
+
+    if (response.ok) {
+      console.log('User created successfully');
+      global.invalidDetails.textContent = '';
+      global.invalidLoginEmail.textContent = '';
+      global.loginEmail.value = '';
+      global.loginPassword.value = '';
+      global.signupEmail.value = '';
+      global.signupPassword.value = '';
+      navigateTo('/');
+    } else {
+      console.log('failed to create user', response);
+    }
   }
 }
 
@@ -462,24 +540,29 @@ function prepareHandles() {
   global.ingredientSections = document.querySelectorAll('.listSector');
   global.selectedIngredientsArray = document.querySelector('.selectedIngredientsArray');
   global.submitIngredientsButton = document.querySelector('#submitIngredientsButton');
+
   global.noRecipe = document.querySelector('.noRecipe');
   global.recipesContainer = document.querySelector('.recipesContainer');
   global.recipeDetailsContainer = document.querySelector('.recipeDetailsContainer');
-
+  global.bookmarkBtn = document.querySelector('.bookmarkBtn');
 
   global.loginEmail = document.querySelector('#loginInput_email');
   global.loginPassword = document.querySelector('#loginInput_password');
   global.loginBtn = document.querySelector('#loginButton');
+  global.invalidDetails = document.querySelector('.invalidDetails');
+  global.invalidLoginEmail = document.querySelector('.invalidLoginEmail');
 
   global.signupEmail = document.querySelector('#new_email');
   global.signupPassword = document.querySelector('#new_password');
   global.signupConfirmPassword = document.querySelector('#confirm_password');
   global.signupBtn = document.querySelector('#signupPageBtn');
+  global.invalidSignupEmail = document.querySelector('.invalidSignupEmail');
 
   global.recipeSearch = document.querySelector('#recipeSearch');
   global.ingredientSearch = document.querySelector('#ingredientSearch');
 
   global.navLinks = document.querySelectorAll('.nav-link');
+  global.registeredUserNav = document.querySelector('.registeredUserNavBar');
 }
 
 // Function to add event listeners
@@ -497,6 +580,9 @@ function addEventListeners() {
 
   global.signupBtn.addEventListener('click', sendSignupDetails);
   global.loginBtn.addEventListener('click', sendLoginDetails);
+
+  // TODO: Add event listener for bookmark button
+  global.bookmarkBtn.addEventListener('click', () => saveRecipe());
 }
 
 // Event listener for popstate event

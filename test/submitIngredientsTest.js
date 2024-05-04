@@ -5,7 +5,7 @@ async function testSubmitIngredients() {
   const driver = await new Builder().forBrowser('chrome').build();
   try {
     // Step 1: Navigate to the web application
-    await driver.get('http://localhost:7000');
+    await driver.get('http://localhost:8080');
     await driver.findElement(By.id('guest_button')).click();
 
     // Ensure the ingredients page is loaded

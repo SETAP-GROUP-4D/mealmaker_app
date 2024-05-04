@@ -27,7 +27,7 @@ export async function createUser(email, password) {
   return result;
 }
 
-export async function authenticateUser(email) {
+export async function getUser(email) {
   const db = await dbConn;
   const result = await db.get(`
     SELECT ACCOUNT_ID AS id, PASSWORD AS hashedPassword

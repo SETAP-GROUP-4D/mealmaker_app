@@ -14,6 +14,10 @@
 
 <body>
     <h1 class="pageTitle">Meal Maker.io</h1>
+    <nav class="registeredUserNavBar hide">
+        <button class="nav-link" data-route="/bookmarks">Bookmarks</button>
+        <button class="nav-link" data-route="/">Log Out</button>
+    </nav>
 
     <section id="loginPage" class="page hide">
         <div class="loginSection">
@@ -21,6 +25,8 @@
             <h2 id="login_title"><b><u>Log In</u></b></h2>
             <p id="loginErrorMsg"> </p>
             <section id="userInputNameForm">
+                <p class="invalidDetails"></p>
+                <p class="invalidLoginEmail"></p>
                 <input id='loginInput_email' value="" placeholder="Email" type="text" required>
                 <input id='loginInput_password' value="" placeholder="Password" type="password" required>
                 <input id='loginButton' type="submit"  class="btn btn-primary" value="Log In">
@@ -38,6 +44,7 @@
         <h2 id="signup_title"><b><u>Sign Up</u></b></h2>
         <p id="signupErrorMsg"> </p>
         <section id="signupForm">
+            <p class="invalidSignupEmail"></p>
             <input type="text" id="new_email" placeholder="Email" required>
             <input type="password" id="new_password" placeholder="Password" required>
             <input id='signupPageBtn' type="submit"  class="btn btn-primary" value="Sign Up">
@@ -62,11 +69,11 @@
  
 
     <section id="viewRecipePage" class="page hide">
-        <button class="bookmarkBtn">Bookmark</button>
+        <button class="bookmarkBtn">Bookmark Recipe</button>
         <section class="recipeDetailsContainer"></section>
     </section>
 
-    <section id="bookmarkPage" class="page hide">
+    <section id="bookmarksPage" class="page hide">
         <section class="bookmarkContainer">
             <h2>Bookmarked Recipes</h2>
         </section>

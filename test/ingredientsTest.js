@@ -4,7 +4,7 @@ import { Builder, By, Key, until } from 'selenium-webdriver';
 async function testIngredientSearch() {
   const driver = await new Builder().forBrowser('chrome').build();
   try {
-    await driver.get('http://localhost:7000');
+    await driver.get('http://localhost:8080');
 
     await driver.findElement(By.id('guest_button')).click();
     await driver.wait(until.elementLocated(By.id('ingredientSearch')), 1000);
