@@ -269,13 +269,30 @@ function viewRecipe(recipeObj) {
   const ingredientsHeader = document.createElement('h2');
   const allergiesHeader = document.createElement('h2');
   const healthInformationHeader = document.createElement('h2');
-
+  const nutitionHeader = document.createElement('h2');
 
   const mealCalories = document.createElement('p');
   const mealIngredients = document.createElement('ol');
   const mealAllergies = document.createElement('ol');
   const healthInformation = document.createElement('ol');
   const viewInstructionsLink = document.createElement('a');
+
+  const nutrients = recipeObj.totalNutrients;
+  const nutrientsPara = document.createElement("section");
+  const nutitionArr = [
+    extractNutrientsInfo('ENERC_KCAL', nutrients),
+    extractNutrientsInfo('FAT', nutrients),
+    extractNutrientsInfo('FASAT', nutrients),
+    extractNutrientsInfo('CHOLE', nutrients),
+    extractNutrientsInfo('NA', nutrients),
+    extractNutrientsInfo('CHOCDF', nutrients),
+    extractNutrientsInfo('FIBTG', nutrients),
+    extractNutrientsInfo('SUGAR', nutrients),
+    extractNutrientsInfo('PROCNT', nutrients),
+    extractNutrientsInfo('CA', nutrients),
+    extractNutrientsInfo('FE', nutrients),
+    extractNutrientsInfo('VITC', nutrients),
+    extractNutrientsInfo('VITA_RAE', nutrients)]
 
   mealImg.src = recipeObj.image;
   mealTitle.textContent = recipeObj.label;
@@ -285,21 +302,22 @@ function viewRecipe(recipeObj) {
   viewInstructionsLink.href = recipeObj.url;
   viewInstructionsLink.textContent = 'View Instructions';
 
+  nutitionHeader.textContent = 'Nutritional Information';
   ingredientsHeader.textContent = 'Ingredients';
   allergiesHeader.textContent = 'Allergies';
   viewInstructionsLink.target = '_blank';
 
 
-  // appends recipe instructions as a list
+  //appends recipe instructions as a list 
   for (const line of recipeObj.ingredientLines) {
-    const li = document.createElement('li');
+    const li = document.createElement('p');
     li.textContent = line;
     mealIngredients.append(li);
   }
 
   // appends recipe allegeries as a list
   for (const line of recipeObj.cautions) {
-    const li = document.createElement('li');
+    const li = document.createElement('p');
     li.textContent = line;
     mealAllergies.append(li);
   }
@@ -307,22 +325,45 @@ function viewRecipe(recipeObj) {
   // appends health information
   if (recipeObj.dietLabels.length !== 0) {
     for (const line of recipeObj.dietLabels) {
-      const li = document.createElement('li');
+      const li = document.createElement('p');
       li.textContent = line;
       healthInformation.append(li);
     }
   } else {
     for (let i = 0; i < 3; i++) {
-      const li = document.createElement('li');
+      const li = document.createElement('p');
       li.textContent = recipeObj.healthLabels[i];
       healthInformation.append(li);
     }
   }
 
+  for (const line of nutitionArr) {
+    const li = document.createElement('p');
+    li.textContent = line;
+    nutrientsPara.append(li);
+  }
+
   global.recipeDetailsContainer.append(mealImg, mealTitle, ingredientsHeader,
     mealIngredients, mealCalories, allergiesHeader, mealAllergies, healthInformationHeader,
-    healthInformation, viewInstructionsLink);
+    healthInformation, nutitionHeader,nutrientsPara,
+    viewInstructionsLink)
+
 }
+
+function extractNutrientsInfo(acronym, nutrients) {
+  // Use bracket notation to access the property dynamically
+  const nutrientInfo = nutrients[acronym];
+  if (nutrientInfo) {
+    // Construct the information string
+    const infoString = `${nutrientInfo.label}: ${Math.round(nutrientInfo.quantity)} ${nutrientInfo.unit}`;
+    console.log(infoString);
+    return infoString;
+  } else {
+    return "Nutrient information not available";
+  }
+}
+
+
 
 // Function to show all recipes
 function showAllRecipes(recipes) {
@@ -574,7 +615,7 @@ function addEventListeners() {
     });
   });
 
-  global.recipeSearch.addEventListener('input', () => searchRecipes(global.recipeSearch.value, global.recipeContainer));
+  global.recipeSearch.addEventListener('input', () => searchRecipes(global.recipeSearch.value, global.recipesContainer));
   global.ingredientSearch.addEventListener('input', searchIngredients);
   global.submitIngredientsButton.addEventListener('click', fetchRecipes);
 
