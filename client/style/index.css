@@ -30,25 +30,6 @@ hr {
     display: flex;
 }
 
-/* Set the styles for the userProfile class */
-.userProfile {
-    border: 2px solid blue;
-    border-radius: 50px;
-    padding: 15px;
-    margin: auto;
-    position: fixed;
-    left: 3%;
-    top:3%;
-    transition: .3s ease;
-}
-
-/* Set the styles for the userProfile class when hovered */
-.userProfile:hover {
-    padding: 19px;
-    border: 2px solid greenyellow;
-    background-color: rgb(213, 213, 213);
-}
-
 /* Set the styles for the search class */
 .search {
     width: 70%;

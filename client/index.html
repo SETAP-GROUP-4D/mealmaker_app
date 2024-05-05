@@ -16,8 +16,10 @@
     <h1 class="pageTitle">Meal Maker.io</h1>
     <nav class="registeredUserNavBar hide">
         <button class="nav-link" data-route="/bookmarks">Bookmarks</button>
-        <button class="nav-link" data-route="/">Log Out</button>
+        <button class="nav-link" data-route="/ingredients">Ingredients</button>
+        <button class="logOutBtn">Log Out</button>
     </nav>
+
 
     <section id="loginPage" class="page hide">
         <div class="loginSection">
@@ -40,6 +42,7 @@
         </div>
     </section>
 
+
     <section id="signupPage" class="page hide">
         <h2 id="signup_title"><b><u>Sign Up</u></b></h2>
         <p id="signupErrorMsg"> </p>
@@ -50,7 +53,6 @@
             <input id='signupPageBtn' type="submit"  class="btn btn-primary" value="Sign Up">
         </section>
     </section>
-    
 
 
     <section id="recipePage" class="page hide">
@@ -69,25 +71,17 @@
  
 
     <section id="viewRecipePage" class="page hide">
-        <button class="bookmarkBtn">Bookmark Recipe</button>
         <section class="recipeDetailsContainer"></section>
     </section>
 
+    
     <section id="bookmarksPage" class="page hide">
-        <section class="bookmarkContainer">
-            <h2>Bookmarked Recipes</h2>
-        </section>
+        <h2>Bookmarked Recipes</h2>
+        <section class="bookmarksContainer"></section>
     </section>
 
-    <section id="ingredientsPage" class="page hide">
-        <button class="userProfile"> 
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" class="bi bi-person"
-                viewBox="0 0 16 16">
-                <path
-                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-            </svg>
-        </button>
-        
+
+    <section id="ingredientsPage" class="page hide">  
         <div class="sticky-container">
             <input id="ingredientSearch" class='search' value="" placeholder="Find an Ingredient" type="text">
             <section class="noRecipe"></section>

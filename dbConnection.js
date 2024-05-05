@@ -68,3 +68,49 @@ export async function sendRecipes(ingredients) {
 
   return recipes;
 }
+
+export async function createBookmark(accountId, recipeObj) {
+  const db = await dbConn;
+
+  // Insert into RECIPE table
+  await db.run(`
+    INSERT INTO RECIPE (RECIPE_ID, RECIPE_OBJECT) 
+    VALUES (?, ?)
+    ON CONFLICT(RECIPE_ID) DO NOTHING
+  `, recipeObj.uri, JSON.stringify(recipeObj));
+
+  // Insert into SAVED_RECIPE table
+  const result = await db.run(`
+    INSERT INTO SAVED_RECIPE (ACCOUNT_ID, RECIPE_ID) 
+    VALUES (?, ?)
+  `, accountId, recipeObj.uri);
+
+  return result;
+}
+
+export async function sendBookmarks(accountId) {
+  const db = await dbConn;
+  const bookmarks = await db.all(`
+    SELECT RECIPE.RECIPE_OBJECT 
+    FROM SAVED_RECIPE 
+    INNER JOIN RECIPE 
+    ON SAVED_RECIPE.RECIPE_ID = RECIPE.RECIPE_ID 
+    WHERE ACCOUNT_ID = ?
+  `, accountId);
+
+  // Parse the JSON strings into objects
+  const bookmarkObjects = bookmarks.map(bookmark => JSON.parse(bookmark.RECIPE_OBJECT));
+
+  return bookmarkObjects;
+}
+
+export async function verifyBookmark(accountId, recipeId) {
+  const db = await dbConn;
+  const result = await db.get(`
+    SELECT * 
+    FROM SAVED_RECIPE 
+    WHERE ACCOUNT_ID = ? AND RECIPE_ID = ?
+  `, accountId, recipeId);
+
+  return result;
+}

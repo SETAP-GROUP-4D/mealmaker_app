@@ -30,7 +30,6 @@ function handleLoginSection() {
     global.registeredUserNav.classList.add('hide');
   }
 
-  localStorage.clear();
   showSection('#loginPage');
 }
 
@@ -64,6 +63,7 @@ function handleViewRecipeSection() {
 // Function to handle the bookmarks section
 function handleBookmarksSection() {
   if (localStorage.getItem('currentUserId')) {
+    showRegisteredUserNav();
     showSection('#bookmarksPage');
   } else {
     navigateTo('/');
@@ -261,8 +261,21 @@ async function fetchAllIngredientsFromServer() {
   return ingredients;
 }
 
-function viewRecipe(recipeObj) {
+// Function to view recipe
+async function viewRecipe(recipeObj) {
   global.recipeDetailsContainer.innerHTML = '';
+
+  global.unbookmarkBtn = document.createElement('button');
+  global.unbookmarkBtn.textContent = 'Remove Bookmark';
+  global.unbookmarkBtn.classList.add('unbookmarkBtn');
+  global.unbookmarkBtn.classList.add('hide');
+  // global.unbookmarkBtn.addEventListener('click', () => removeRecipeFromBookmarks(recipeObj));
+
+  global.bookmarkBtn = document.createElement('button');
+  global.bookmarkBtn.textContent = 'Bookmark';
+  global.bookmarkBtn.classList.add('bookmarkBtn');
+  global.bookmarkBtn.classList.add('hide');
+  global.bookmarkBtn.addEventListener('click', () => checkLoginForBookmark(recipeObj));
 
   const mealImg = document.createElement('img');
   const mealTitle = document.createElement('h2');
@@ -271,14 +284,13 @@ function viewRecipe(recipeObj) {
   const healthInformationHeader = document.createElement('h2');
   const nutitionHeader = document.createElement('h2');
 
-  const mealCalories = document.createElement('p');
   const mealIngredients = document.createElement('ol');
   const mealAllergies = document.createElement('ol');
   const healthInformation = document.createElement('ol');
   const viewInstructionsLink = document.createElement('a');
 
   const nutrients = recipeObj.totalNutrients;
-  const nutrientsPara = document.createElement("section");
+  const nutrientsPara = document.createElement('section');
   const nutitionArr = [
     extractNutrientsInfo('ENERC_KCAL', nutrients),
     extractNutrientsInfo('FAT', nutrients),
@@ -292,12 +304,11 @@ function viewRecipe(recipeObj) {
     extractNutrientsInfo('CA', nutrients),
     extractNutrientsInfo('FE', nutrients),
     extractNutrientsInfo('VITC', nutrients),
-    extractNutrientsInfo('VITA_RAE', nutrients)]
+    extractNutrientsInfo('VITA_RAE', nutrients)];
 
   mealImg.src = recipeObj.image;
   mealTitle.textContent = recipeObj.label;
   healthInformationHeader.textContent = 'Health Information';
-  mealCalories.textContent = 'Calories: ' + Math.round(recipeObj.calories) + ' cal';
 
   viewInstructionsLink.href = recipeObj.url;
   viewInstructionsLink.textContent = 'View Instructions';
@@ -308,7 +319,7 @@ function viewRecipe(recipeObj) {
   viewInstructionsLink.target = '_blank';
 
 
-  //appends recipe instructions as a list 
+  // appends recipe instructions as a list
   for (const line of recipeObj.ingredientLines) {
     const li = document.createElement('p');
     li.textContent = line;
@@ -316,10 +327,16 @@ function viewRecipe(recipeObj) {
   }
 
   // appends recipe allegeries as a list
-  for (const line of recipeObj.cautions) {
+  if (recipeObj.cautions.length === 0) {
     const li = document.createElement('p');
-    li.textContent = line;
+    li.textContent = 'No allergies found';
     mealAllergies.append(li);
+  } else {
+    for (const line of recipeObj.cautions) {
+      const li = document.createElement('p');
+      li.textContent = line;
+      mealAllergies.append(li);
+    }
   }
 
   // appends health information
@@ -343,11 +360,18 @@ function viewRecipe(recipeObj) {
     nutrientsPara.append(li);
   }
 
-  global.recipeDetailsContainer.append(mealImg, mealTitle, ingredientsHeader,
-    mealIngredients, mealCalories, allergiesHeader, mealAllergies, healthInformationHeader,
-    healthInformation, nutitionHeader,nutrientsPara,
-    viewInstructionsLink)
+  global.recipeDetailsContainer.append(
+    global.bookmarkBtn, global.unbookmarkBtn, mealImg, mealTitle, ingredientsHeader,
+    mealIngredients, allergiesHeader, mealAllergies, healthInformationHeader,
+    healthInformation, nutitionHeader, nutrientsPara, viewInstructionsLink);
 
+
+  const booleanValue = await checkForBookmarkedRecipes(recipeObj);
+  if (booleanValue) {
+    global.unbookmarkBtn.classList.remove('hide');
+  } else {
+    global.bookmarkBtn.classList.remove('hide');
+  }
 }
 
 function extractNutrientsInfo(acronym, nutrients) {
@@ -356,20 +380,16 @@ function extractNutrientsInfo(acronym, nutrients) {
   if (nutrientInfo) {
     // Construct the information string
     const infoString = `${nutrientInfo.label}: ${Math.round(nutrientInfo.quantity)} ${nutrientInfo.unit}`;
-    console.log(infoString);
     return infoString;
   } else {
-    return "Nutrient information not available";
+    return 'Nutrient information not available';
   }
 }
-
-
 
 // Function to show all recipes
 function showAllRecipes(recipes) {
   console.log(recipes, 'recipes');
-  global.recipesContainer.innerHTML = '';
-  global.recipesContainer.append('Selected Ingredients: ' + global.ingredientArray.join(', '));
+  const recipeSectionsArray = [];
   for (const recipeObject of recipes) {
     const recipeSec = document.createElement('section');
     const recipeImg = document.createElement('img');
@@ -385,8 +405,16 @@ function showAllRecipes(recipes) {
       viewRecipe(recipeObject);
       navigateTo('/viewrecipe');
     });
-    global.recipesContainer.append(recipeSec);
+    recipeSectionsArray.push(recipeSec);
   }
+  return recipeSectionsArray;
+}
+
+function appendRecipesToAllRecipesPage(recipes) {
+  const recipeSections = showAllRecipes(recipes);
+  global.recipesContainer.innerHTML = '';
+  global.recipesContainer.append('Selected Ingredients: ' + global.ingredientArray.join(', '));
+  global.recipesContainer.append(...recipeSections);
 }
 
 // Function to confirm ingredients
@@ -399,7 +427,7 @@ function ingredientConfirmation(recipes) {
     console.log('working');
   } else {
     global.noRecipe.innerHTML = '';
-    showAllRecipes(recipes);
+    appendRecipesToAllRecipesPage(recipes);
     navigateTo('/recipes');
     handleRecipesSection();
   }
@@ -480,16 +508,63 @@ async function fetchRecipes() {
   }
 }
 
-// Function to show bookmarks
+// Function to check for bookmarked recipes(decides when bookmark btn is shown)
+async function checkForBookmarkedRecipes(recipeObj) {
+  const id = localStorage.getItem('currentUserId');
+  const recipeId = recipeObj.uri;
+
+  const payload = { id, recipeId };
+  const response = await fetch(`data/bookmarks/${id}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(error => {
+    console.error('Failed to fetch:', error);
+  });
+
+  if (response.ok) {
+    const result = await response.json();
+    if (result.status === 200) {
+      return true;
+    } else if (result.status === 404) {
+      return false;
+    }
+  } else {
+    console.log('failed to verify bookmark', response);
+  }
+}
+
+// Function to check if user is logged in before bookmarking
+function checkLoginForBookmark(recipeObj) {
+  if (localStorage.getItem('currentUserId')) {
+    saveRecipe(recipeObj);
+  } else {
+    navigateTo('/');
+  }
+}
+
+function appendRecipesToBookmarksPage(recipes) {
+  const recipeSections = showAllRecipes(recipes);
+  global.bookmarksContainer.innerHTML = '';
+  global.bookmarksContainer.append(...recipeSections);
+}
 
 // Function to fetch bookmarks
 async function fetchBookmarks() {
-
+  const userId = localStorage.getItem('currentUserId');
+  const response = await fetch(`data/bookmarks/${userId}`);
+  if (response.ok) {
+    const recipes = await response.json();
+    console.log(recipes, 'bookmarks');
+    appendRecipesToBookmarksPage(recipes);
+  } else {
+    console.log('failed to load bookmarks', response);
+  }
 }
 
-async function saveRecipe(recipe) {
+async function saveRecipe(recipeObj) {
   const userId = localStorage.getItem('currentUserId');
-  const payload = { userId, recipe };
+  const payload = { userId, recipeObj };
   const response = await fetch('data/bookmarks', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -500,11 +575,19 @@ async function saveRecipe(recipe) {
 
   if (response.ok) {
     console.log('Recipe saved successfully');
+    global.bookmarkBtn.classList.add('hide');
+    global.unbookmarkBtn.classList.remove('hide');
+
+    // update bookmarks
+    fetchBookmarks();
   } else {
     console.log('failed to save recipe', response);
   }
 }
 
+// async removeRecipeFromBookmarks(recipeObj){
+
+// }
 
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -576,6 +659,12 @@ async function sendSignupDetails() {
   }
 }
 
+function logOut() {
+  localStorage.clear();
+  navigateTo('/');
+  location.reload(true);
+}
+
 // Function to prepare handles
 function prepareHandles() {
   global.ingredientSections = document.querySelectorAll('.listSector');
@@ -585,11 +674,11 @@ function prepareHandles() {
   global.noRecipe = document.querySelector('.noRecipe');
   global.recipesContainer = document.querySelector('.recipesContainer');
   global.recipeDetailsContainer = document.querySelector('.recipeDetailsContainer');
-  global.bookmarkBtn = document.querySelector('.bookmarkBtn');
 
   global.loginEmail = document.querySelector('#loginInput_email');
   global.loginPassword = document.querySelector('#loginInput_password');
   global.loginBtn = document.querySelector('#loginButton');
+  global.logOutBtn = document.querySelector('.logOutBtn');
   global.invalidDetails = document.querySelector('.invalidDetails');
   global.invalidLoginEmail = document.querySelector('.invalidLoginEmail');
 
@@ -601,6 +690,8 @@ function prepareHandles() {
 
   global.recipeSearch = document.querySelector('#recipeSearch');
   global.ingredientSearch = document.querySelector('#ingredientSearch');
+
+  global.bookmarksContainer = document.querySelector('.bookmarksContainer');
 
   global.navLinks = document.querySelectorAll('.nav-link');
   global.registeredUserNav = document.querySelector('.registeredUserNavBar');
@@ -621,9 +712,7 @@ function addEventListeners() {
 
   global.signupBtn.addEventListener('click', sendSignupDetails);
   global.loginBtn.addEventListener('click', sendLoginDetails);
-
-  // TODO: Add event listener for bookmark button
-  global.bookmarkBtn.addEventListener('click', () => saveRecipe());
+  global.logOutBtn.addEventListener('click', logOut);
 }
 
 // Event listener for popstate event

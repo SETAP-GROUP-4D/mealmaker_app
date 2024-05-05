@@ -46,10 +46,40 @@ async function authenticateUser(req, res) {
   }
 }
 
+async function postBookmark(req, res) {
+  try {
+    const result = await db.createBookmark(req.body.userId, req.body.recipeObj);
+    res.json({ BOOKMARK_ID: result.lastID });
+  } catch (error) {
+    console.log('Internal Server Error', error);
+  }
+}
+
+async function getBookmarks(req, res) {
+  const bookmarks = await db.sendBookmarks(req.params.id);
+  if (bookmarks) {
+    res.json(bookmarks);
+  } else {
+    res.status(404).send('No match for that ID.');
+  }
+}
+
+async function verifyBookmark(req, res) {
+  const result = await db.verifyBookmark(req.params.id, req.body.recipeId);
+  if (result) {
+    res.status(200).json({ message: 'Bookmark exists' });
+  } else {
+    res.status(404).json({ message: 'Bookmark not found' });
+  }
+}
+
 app.get('/data/ingredients', getIngredients);
 app.post('/data/recipes', express.json(), getRecipes);
 app.post('/data/users/register', express.json(), postUser);
 app.post('/data/users/login', express.json(), authenticateUser);
+app.post('/data/bookmarks', express.json(), postBookmark);
+app.get('/data/bookmarks/:id', getBookmarks);
+app.post('/data/bookmarks/:id', express.json(), verifyBookmark);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve('client', 'index.html'));
