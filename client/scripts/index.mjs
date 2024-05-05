@@ -102,30 +102,6 @@ function router() {
   match.route.view();
 }
 
-const filters = document.querySelectorAll('.filter');
-filters.forEach(filter => {
-  filter.addEventListener('click', function () {
-    filterMeals(filter.id);
-  });
-});
-
-function filterMeals(filter) {
-  const arr = [];
-  console.log(global.recipes[0].totalTime);
-  if (filter == 'cookingTimeFilter') {
-    global.recipes.forEach(eachMeal => {
-      arr.push(eachMeal.totalTime);
-      arr.sort((a, b) => a - b);
-    });
-  } else if (filter == 'numberOfIngredients') {
-    global.recipes.forEach(eachMeal => {
-      arr.push(eachMeal.ingredients.length);
-      arr.sort((a, b) => a - b);
-    });
-  } console.log(arr);
-}
-
-
 // Function to search ingredients
 function searchIngredients() {
   const ingredientSectionsContainer = document.querySelectorAll('.categoryIngredients');
@@ -389,12 +365,20 @@ function showAllRecipes(recipes) {
     const recipeSec = document.createElement('section');
     const recipeImg = document.createElement('img');
     const recipeTitle = document.createElement('h2');
+    const cookingTime = document.createElement('p');
 
     recipeImg.src = recipeObject.image;
     recipeImg.alt = recipeObject.label;
     recipeImg.classList.add('image');
     recipeTitle.textContent = recipeObject.label;
-    recipeSec.append(recipeImg, recipeTitle);
+
+    if (recipeObject.totalTime !== 0) {
+      cookingTime.textContent = `Cooking Time: ${recipeObject.totalTime} minutes`;
+    } else {
+      cookingTime.textContent = 'Cooking Time: Not available';
+    }
+
+    recipeSec.append(recipeImg, recipeTitle, cookingTime);
     recipeSec.classList.add('recipeSector');
     recipeSec.addEventListener('click', () => {
       viewRecipe(recipeObject);
@@ -515,6 +499,22 @@ function cuisineTypeFilter() {
   } else {
     fetchRecipes();
   }
+}
+
+function timeBasedFilter() {
+  // Filter out recipes with totalTime greater than zero and sort them
+  const recipesWithTime = global.recipes
+    .filter(recipe => recipe.totalTime > 0)
+    .sort((a, b) => a.totalTime - b.totalTime);
+
+  // Filter out recipes with totalTime equal to zero
+  const recipesWithoutTime = global.recipes.filter(recipe => recipe.totalTime === 0);
+
+  // Concatenate the two arrays, with recipesWithTime first
+  const sortedRecipes = recipesWithTime.concat(recipesWithoutTime);
+
+  // Display the sorted recipes
+  appendRecipesToAllRecipesPage(sortedRecipes);
 }
 
 function isRecipeBookmarked(recipeObj, bookmarks) {
@@ -683,6 +683,8 @@ function prepareHandles() {
   global.noRecipe = document.querySelector('.noRecipe');
   global.recipesContainer = document.querySelector('.recipesContainer');
   global.recipeDetailsContainer = document.querySelector('.recipeDetailsContainer');
+
+  global.cookingTimeFilter = document.querySelector('#cookingTimeFilter');
   global.cuisineType = document.querySelector('#cuisineFilter');
 
   global.loginEmail = document.querySelector('#loginInput_email');
@@ -719,6 +721,8 @@ function addEventListeners() {
   global.recipeSearch.addEventListener('input', () => searchRecipes(global.recipeSearch.value, global.recipesContainer));
   global.ingredientSearch.addEventListener('input', searchIngredients);
   global.submitIngredientsButton.addEventListener('click', fetchRecipes);
+
+  global.cookingTimeFilter.addEventListener('click', timeBasedFilter);
   global.cuisineType.addEventListener('change', cuisineTypeFilter);
 
   global.signupBtn.addEventListener('click', sendSignupDetails);
