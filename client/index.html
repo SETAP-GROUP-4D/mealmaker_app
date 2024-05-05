@@ -56,14 +56,35 @@
 
 
     <section id="recipePage" class="page hide">
-        <section class='search sticky-container'>
-            <input id="recipeSearch" placeholder="Find Recipe" type="text">
+        <section class='sticky-container'>
+            <input id="recipeSearch" class="search" placeholder="Find a Recipe" type="text">
         </section>
-        <h2 id="recipeOptionMessage">Available Meals</h2>
         <div id="mealFilters"> 
-            <button class="filter" id="cookingTimeFilter">Cooking Time</button> 
-            <button class="filter" id="numberOfIngredients">Number of Ingredients</button> 
-            <button class="filter" id="caloriesCount">Calories</button> 
+            <button class="filter" id="cookingTimeFilter">Cooking Time Filter</button>
+            <select id="cuisineFilter">
+                <option value="all">All Cuisines</option>
+                <option value="american">American</option>
+                <option value="asian">Asian</option>
+                <option value="british">British</option>
+                <option value="caribbean">Caribbean</option>
+                <option value="central europe">Central Europe</option>
+                <option value="chinese">Chinese</option>
+                <option value="eastern europe">Eastern Europe</option>
+                <option value="french">French</option>
+                <option value="greek">Greek</option>
+                <option value="indian">Indian</option>
+                <option value="italian">Italian</option>
+                <option value="japanese">Japanese</option>
+                <option value="korean">Korean</option>
+                <option value="kosher">Kosher</option>
+                <option value="mediterranean">Mediterranean</option>
+                <option value="mexican">Mexican</option>
+                <option value="middle eastern">Middle Eastern</option>
+                <option value="nordic">Nordic</option>
+                <option value="south american">South American</option>
+                <option value="south east asian">South East Asian</option>
+                <option value="world">World</option>
+            </select>
         </div>
         <section class="recipesContainer">
         </section>

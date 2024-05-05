@@ -122,13 +122,7 @@ function filterMeals(filter) {
       arr.push(eachMeal.ingredients.length);
       arr.sort((a, b) => a - b);
     });
-  } else if (filter == 'caloriesCount') {
-    global.recipes.forEach(eachMeal => {
-      arr.push(eachMeal.calories);
-      arr.sort((a, b) => a - b);
-    });
-  }
-  console.log(arr);
+  } console.log(arr);
 }
 
 
@@ -269,7 +263,7 @@ async function viewRecipe(recipeObj) {
   global.unbookmarkBtn.textContent = 'Remove Bookmark';
   global.unbookmarkBtn.classList.add('unbookmarkBtn');
   global.unbookmarkBtn.classList.add('hide');
-  // global.unbookmarkBtn.addEventListener('click', () => removeRecipeFromBookmarks(recipeObj));
+  global.unbookmarkBtn.addEventListener('click', () => removeRecipeFromBookmarks(recipeObj.uri));
 
   global.bookmarkBtn = document.createElement('button');
   global.bookmarkBtn.textContent = 'Bookmark';
@@ -365,9 +359,10 @@ async function viewRecipe(recipeObj) {
     mealIngredients, allergiesHeader, mealAllergies, healthInformationHeader,
     healthInformation, nutitionHeader, nutrientsPara, viewInstructionsLink);
 
+  const bookmarkObjects = await fetchBookmarks();
+  const isBookmarked = isRecipeBookmarked(recipeObj, bookmarkObjects);
 
-  const booleanValue = await checkForBookmarkedRecipes(recipeObj);
-  if (booleanValue) {
+  if (isBookmarked) {
     global.unbookmarkBtn.classList.remove('hide');
   } else {
     global.bookmarkBtn.classList.remove('hide');
@@ -486,9 +481,11 @@ function ingredientConfirmation(recipes) {
 // Function to fetch recipes
 async function fetchRecipes() {
   console.log(global.ingredientArray);
+  const ingredients = global.ingredientArray;
+  const cuisineType = global.selectedCuisine;
 
-  // Send the ingredientArray as payload
-  const payload = global.ingredientArray;
+  // Send the ingredientArray and cuisneType(if it exists) as payload
+  const payload = { ingredients, cuisineType };
   const response = await fetch('data/recipes', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -508,30 +505,20 @@ async function fetchRecipes() {
   }
 }
 
-// Function to check for bookmarked recipes(decides when bookmark btn is shown)
-async function checkForBookmarkedRecipes(recipeObj) {
-  const id = localStorage.getItem('currentUserId');
-  const recipeId = recipeObj.uri;
 
-  const payload = { id, recipeId };
-  const response = await fetch(`data/bookmarks/${id}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  }).catch(error => {
-    console.error('Failed to fetch:', error);
-  });
-
-  if (response.ok) {
-    const result = await response.json();
-    if (result.status === 200) {
-      return true;
-    } else if (result.status === 404) {
-      return false;
-    }
+function cuisineTypeFilter() {
+  global.selectedCuisine = [];
+  const selectedOption = global.cuisineType.options[global.cuisineType.selectedIndex];
+  if (!(selectedOption.textContent === 'All Cuisines')) {
+    global.selectedCuisine.push(selectedOption.textContent);
+    fetchRecipes();
   } else {
-    console.log('failed to verify bookmark', response);
+    fetchRecipes();
   }
+}
+
+function isRecipeBookmarked(recipeObj, bookmarks) {
+  return bookmarks.some(bookmark => bookmark.uri === recipeObj.uri);
 }
 
 // Function to check if user is logged in before bookmarking
@@ -554,11 +541,14 @@ async function fetchBookmarks() {
   const userId = localStorage.getItem('currentUserId');
   const response = await fetch(`data/bookmarks/${userId}`);
   if (response.ok) {
-    const recipes = await response.json();
-    console.log(recipes, 'bookmarks');
-    appendRecipesToBookmarksPage(recipes);
+    const bookmarks = await response.json();
+    const bookmarkObjects = bookmarks.map(bookmark => JSON.parse(bookmark.RECIPE_OBJECT));
+    console.log(bookmarkObjects, 'bookmarks');
+    appendRecipesToBookmarksPage(bookmarkObjects);
+    return bookmarkObjects;
   } else {
     console.log('failed to load bookmarks', response);
+    return [];
   }
 }
 
@@ -585,9 +575,28 @@ async function saveRecipe(recipeObj) {
   }
 }
 
-// async removeRecipeFromBookmarks(recipeObj){
+async function removeRecipeFromBookmarks(recipeId) {
+  const userId = localStorage.getItem('currentUserId');
+  const payload = { userId, recipeId };
+  const response = await fetch('data/bookmarks', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(error => {
+    console.error('Failed to fetch:', error);
+  });
 
-// }
+  if (response.ok) {
+    console.log('Recipe removed successfully');
+    global.unbookmarkBtn.classList.add('hide');
+    global.bookmarkBtn.classList.remove('hide');
+
+    // update bookmarks
+    fetchBookmarks();
+  } else {
+    console.log('failed to remove recipe', response);
+  }
+}
 
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -674,6 +683,7 @@ function prepareHandles() {
   global.noRecipe = document.querySelector('.noRecipe');
   global.recipesContainer = document.querySelector('.recipesContainer');
   global.recipeDetailsContainer = document.querySelector('.recipeDetailsContainer');
+  global.cuisineType = document.querySelector('#cuisineFilter');
 
   global.loginEmail = document.querySelector('#loginInput_email');
   global.loginPassword = document.querySelector('#loginInput_password');
@@ -709,6 +719,7 @@ function addEventListeners() {
   global.recipeSearch.addEventListener('input', () => searchRecipes(global.recipeSearch.value, global.recipesContainer));
   global.ingredientSearch.addEventListener('input', searchIngredients);
   global.submitIngredientsButton.addEventListener('click', fetchRecipes);
+  global.cuisineType.addEventListener('change', cuisineTypeFilter);
 
   global.signupBtn.addEventListener('click', sendSignupDetails);
   global.loginBtn.addEventListener('click', sendLoginDetails);

@@ -41,18 +41,6 @@ hr {
     border-radius: 20px;
 }
 
-/* Set the styles for the searchButton class */
-.searchButton {
-    width: 50px;
-    padding: 10px;
-    background: #2196F3;
-    color: white;
-    font-size: 17px;
-    border: 1px solid grey;
-    border-left: none;
-    cursor: pointer;
-}
-
 /* Set the styles for the image class */
 .image {
     width: 120%;

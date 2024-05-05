@@ -14,7 +14,7 @@ async function getIngredients(req, res) {
 }
 
 async function getRecipes(req, res) {
-  res.json(await db.sendRecipes(req.body));
+  res.json(await db.sendRecipes(req.body.ingredients, req.body.cuisineType));
 }
 
 async function postUser(req, res) {
@@ -64,13 +64,9 @@ async function getBookmarks(req, res) {
   }
 }
 
-async function verifyBookmark(req, res) {
-  const result = await db.verifyBookmark(req.params.id, req.body.recipeId);
-  if (result) {
-    res.status(200).json({ message: 'Bookmark exists' });
-  } else {
-    res.status(404).json({ message: 'Bookmark not found' });
-  }
+async function deleteBookmark(req, res) {
+  const result = await db.deleteBookmarkFromDatabase(req.body.userId, req.body.recipeId);
+  res.json(result);
 }
 
 app.get('/data/ingredients', getIngredients);
@@ -79,7 +75,7 @@ app.post('/data/users/register', express.json(), postUser);
 app.post('/data/users/login', express.json(), authenticateUser);
 app.post('/data/bookmarks', express.json(), postBookmark);
 app.get('/data/bookmarks/:id', getBookmarks);
-app.post('/data/bookmarks/:id', express.json(), verifyBookmark);
+app.delete('/data/bookmarks', express.json(), deleteBookmark);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve('client', 'index.html'));

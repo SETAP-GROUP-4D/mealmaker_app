@@ -51,7 +51,7 @@ export async function sendIngredients() {
   return ingredients;
 }
 
-export async function sendRecipes(ingredients) {
+export async function sendRecipes(ingredients, cuisineType) {
   // Edamam API credentials
   const APP_ID = process.env.APP_ID;
   const APP_KEY = process.env.APP_KEY;
@@ -62,6 +62,11 @@ export async function sendRecipes(ingredients) {
     app_id: APP_ID,
     app_key: APP_KEY,
   };
+
+  // Add cuisineType parameter if provided
+  if (cuisineType && cuisineType.length > 0) {
+    params.cuisineType = cuisineType.join(',');
+  }
 
   const response = await axios.get('https://api.edamam.com/api/recipes/v2', { params });
   const recipes = response.data.hits.map(hit => hit.recipe);
@@ -98,17 +103,13 @@ export async function sendBookmarks(accountId) {
     WHERE ACCOUNT_ID = ?
   `, accountId);
 
-  // Parse the JSON strings into objects
-  const bookmarkObjects = bookmarks.map(bookmark => JSON.parse(bookmark.RECIPE_OBJECT));
-
-  return bookmarkObjects;
+  return bookmarks;
 }
 
-export async function verifyBookmark(accountId, recipeId) {
+export async function deleteBookmarkFromDatabase(accountId, recipeId) {
   const db = await dbConn;
-  const result = await db.get(`
-    SELECT * 
-    FROM SAVED_RECIPE 
+  const result = await db.run(`
+    DELETE FROM SAVED_RECIPE 
     WHERE ACCOUNT_ID = ? AND RECIPE_ID = ?
   `, accountId, recipeId);
 
