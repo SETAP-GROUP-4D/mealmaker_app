@@ -1,6 +1,7 @@
 // Global object to store data
 const global = { ingredientArray: [] };
 
+// function to show registered user navigation
 function showRegisteredUserNav() {
   if (localStorage.getItem('currentUserId')) {
     global.registeredUserNav.classList.remove('hide');
@@ -72,13 +73,14 @@ function handleBookmarksSection() {
 
 // Router function to handle different routes
 function router() {
+  // Define the routes and their corresponding view functions
   const routes = [
-    { path: '/', view: () => handleLoginSection() },
-    { path: '/signup', view: () => handleSignupSection() },
-    { path: '/ingredients', view: () => handleIngredientsSection() },
-    { path: '/recipes', view: () => handleRecipesSection() },
-    { path: '/viewrecipe', view: () => handleViewRecipeSection() },
-    { path: '/bookmarks', view: () => handleBookmarksSection() },
+    { path: '/', view: () => handleLoginSection() }, // Home page
+    { path: '/signup', view: () => handleSignupSection() }, // Signup page
+    { path: '/ingredients', view: () => handleIngredientsSection() }, // Ingredients page
+    { path: '/recipes', view: () => handleRecipesSection() }, // Recipes page
+    { path: '/viewrecipe', view: () => handleViewRecipeSection() }, // View recipe page
+    { path: '/bookmarks', view: () => handleBookmarksSection() }, // Bookmarks page
   ];
 
   // Test each route for potential match
@@ -92,6 +94,7 @@ function router() {
   let match = potentialMatches.find((potentialMatch) => potentialMatch.isMatch);
 
   if (!match) {
+    // If no match is found, default to the home page
     match = {
       route: routes[0],
       isMatch: true,
@@ -139,7 +142,6 @@ function searchRecipes(query, list) {
 
 // Function to remove an ingredient
 function removeIngredient(ingredientBtn) {
-  // Get the text content of the button
   const ingredientName = ingredientBtn.textContent;
 
   // Remove the ingredient from the global ingredientArray
@@ -160,26 +162,19 @@ function removeIngredient(ingredientBtn) {
 
 // Function to select an ingredient
 function selectIngredient(ingredient) {
-  // Show the selectedIngredientsArray if it's hidden
   if (global.selectedIngredientsArray.classList.contains('hide')) {
     global.selectedIngredientsArray.classList.remove('hide');
   }
 
-  // Toggle the 'selectedIngredient' class on the ingredient button
   ingredient.classList.toggle('selectedIngredient');
 
-  // Check if the ingredient is already in the ingredientArray
   if (!(global.ingredientArray.includes(ingredient.textContent))) {
-    // Create a new button for the selected ingredient
     const btn = document.createElement('button');
     btn.textContent = ingredient.textContent;
     btn.addEventListener('click', () => removeIngredient(btn));
     btn.addEventListener('click', () => ingredient.classList.toggle('selectedIngredient'));
 
-    // Append the button to the selectedIngredientsArray
     global.selectedIngredientsArray.append(btn);
-
-    // Add the ingredient to the ingredientArray
     global.ingredientArray.push(ingredient.textContent);
   } else {
     // If the ingredient is already selected, remove it
@@ -188,6 +183,7 @@ function selectIngredient(ingredient) {
   console.log(global.ingredientArray);
 }
 
+// Function to get ingredients from source(local storage or server)
 async function getIngredientsFromSource() {
   if (!(localStorage.getItem('ingredients'))) {
     return await fetchAllIngredientsFromServer();
@@ -231,16 +227,23 @@ async function fetchAllIngredientsFromServer() {
   return ingredients;
 }
 
-// Function to view recipe
+
+/**
+ * Function to view recipe details
+ * @param {Object} recipeObj - The recipe object containing details
+ */
 async function viewRecipe(recipeObj) {
+  // Clear the recipe details container
   global.recipeDetailsContainer.innerHTML = '';
 
+  // Create the unbookmark button
   global.unbookmarkBtn = document.createElement('button');
   global.unbookmarkBtn.textContent = 'Remove Bookmark';
   global.unbookmarkBtn.classList.add('unbookmarkBtn');
   global.unbookmarkBtn.classList.add('hide');
   global.unbookmarkBtn.addEventListener('click', () => removeRecipeFromBookmarks(recipeObj.uri));
 
+  // Create the bookmark button
   global.bookmarkBtn = document.createElement('button');
   global.bookmarkBtn.textContent = 'Bookmark';
   global.bookmarkBtn.classList.add('bookmarkBtn');
@@ -253,14 +256,16 @@ async function viewRecipe(recipeObj) {
   const allergiesHeader = document.createElement('h2');
   const healthInformationHeader = document.createElement('h2');
   const nutitionHeader = document.createElement('h2');
-
   const mealIngredients = document.createElement('ol');
   const mealAllergies = document.createElement('ol');
   const healthInformation = document.createElement('ol');
   const viewInstructionsLink = document.createElement('a');
-
-  const nutrients = recipeObj.totalNutrients;
   const nutrientsPara = document.createElement('section');
+
+  // Get the nutrients object from the recipe
+  const nutrients = recipeObj.totalNutrients;
+
+  // Create an array of nutrient information
   const nutitionArr = [
     extractNutrientsInfo('ENERC_KCAL', nutrients),
     extractNutrientsInfo('FAT', nutrients),
@@ -274,70 +279,75 @@ async function viewRecipe(recipeObj) {
     extractNutrientsInfo('CA', nutrients),
     extractNutrientsInfo('FE', nutrients),
     extractNutrientsInfo('VITC', nutrients),
-    extractNutrientsInfo('VITA_RAE', nutrients)];
+    extractNutrientsInfo('VITA_RAE', nutrients),
+  ];
 
   mealImg.src = recipeObj.image;
   mealTitle.textContent = recipeObj.label;
   healthInformationHeader.textContent = 'Health Information';
-
-  viewInstructionsLink.href = recipeObj.url;
-  viewInstructionsLink.textContent = 'View Instructions';
-
   nutitionHeader.textContent = 'Nutritional Information';
   ingredientsHeader.textContent = 'Ingredients';
   allergiesHeader.textContent = 'Allergies';
+
+  // Set the view instructions link properties
+  viewInstructionsLink.href = recipeObj.url;
+  viewInstructionsLink.textContent = 'View Instructions';
   viewInstructionsLink.target = '_blank';
 
-
-  // appends recipe instructions as a list
+  // Append recipe instructions as paragraph items
   for (const line of recipeObj.ingredientLines) {
-    const li = document.createElement('p');
-    li.textContent = line;
-    mealIngredients.append(li);
+    const p = document.createElement('p');
+    p.textContent = line;
+    mealIngredients.append(p);
   }
 
-  // appends recipe allegeries as a list
+  // Append recipe allergies as paragraph items
   if (recipeObj.cautions.length === 0) {
-    const li = document.createElement('p');
-    li.textContent = 'No allergies found';
-    mealAllergies.append(li);
+    const p = document.createElement('p');
+    p.textContent = 'No allergies found';
+    mealAllergies.append(p);
   } else {
     for (const line of recipeObj.cautions) {
-      const li = document.createElement('p');
-      li.textContent = line;
-      mealAllergies.append(li);
+      const p = document.createElement('p');
+      p.textContent = line;
+      mealAllergies.append(p);
     }
   }
 
-  // appends health information
+  // Append health information
   if (recipeObj.dietLabels.length !== 0) {
     for (const line of recipeObj.dietLabels) {
-      const li = document.createElement('p');
-      li.textContent = line;
-      healthInformation.append(li);
+      const p = document.createElement('p');
+      p.textContent = line;
+      healthInformation.append(p);
     }
   } else {
     for (let i = 0; i < 3; i++) {
-      const li = document.createElement('p');
-      li.textContent = recipeObj.healthLabels[i];
-      healthInformation.append(li);
+      const p = document.createElement('p');
+      p.textContent = recipeObj.healthLabels[i];
+      healthInformation.append(p);
     }
   }
 
+  // Append nutrient information
   for (const line of nutitionArr) {
-    const li = document.createElement('p');
-    li.textContent = line;
-    nutrientsPara.append(li);
+    const p = document.createElement('p');
+    p.textContent = line;
+    nutrientsPara.append(p);
   }
 
+  // Append all elements to the recipe details container
   global.recipeDetailsContainer.append(
     global.bookmarkBtn, global.unbookmarkBtn, mealImg, mealTitle, ingredientsHeader,
     mealIngredients, allergiesHeader, mealAllergies, healthInformationHeader,
-    healthInformation, nutitionHeader, nutrientsPara, viewInstructionsLink);
+    healthInformation, nutitionHeader, nutrientsPara, viewInstructionsLink,
+  );
 
+  // Fetch bookmarks and check if the recipe is bookmarked
   const bookmarkObjects = await fetchBookmarks();
   const isBookmarked = isRecipeBookmarked(recipeObj, bookmarkObjects);
 
+  // Show the appropriate button based on bookmark status
   if (isBookmarked) {
     global.unbookmarkBtn.classList.remove('hide');
   } else {
@@ -375,7 +385,7 @@ function showAllRecipes(recipes) {
     if (recipeObject.totalTime !== 0) {
       cookingTime.textContent = `Cooking Time: ${recipeObject.totalTime} minutes`;
     } else {
-      cookingTime.textContent = 'Cooking Time: Not available';
+      cookingTime.textContent = '';
     }
 
     recipeSec.append(recipeImg, recipeTitle, cookingTime);
@@ -389,25 +399,39 @@ function showAllRecipes(recipes) {
   return recipeSectionsArray;
 }
 
+// Function to append recipes to the allRecipes page
 function appendRecipesToAllRecipesPage(recipes) {
   const recipeSections = showAllRecipes(recipes);
+
+  // Clear the recipes container
   global.recipesContainer.innerHTML = '';
+
+  // Display the selected ingredients
   global.recipesContainer.append('Selected Ingredients: ' + global.ingredientArray.join(', '));
+
+  // Append the recipe sections to the recipes container
   global.recipesContainer.append(...recipeSections);
 }
 
-// Function to confirm ingredients
+
+// Function to handle ingredient confirmation and error messages
 function ingredientConfirmation(recipes) {
   if ((recipes.length === 0) && (global.noRecipe.innerHTML === '')) {
+    // Display message when no recipes found
     const noRecipe = document.createElement('h2');
     noRecipe.textContent = 'No recipes found for ingredients chosen. Please add more ingredients or select other combinations.';
     global.noRecipe.append(noRecipe);
   } else if ((recipes.length === 0) && !(global.noRecipe.innerHTML === '')) {
+    // Do nothing if no recipes found and message already displayed
     console.log('working');
   } else {
+    // Clear the noRecipe container
     global.noRecipe.innerHTML = '';
+    // Append recipes to the allRecipes page
     appendRecipesToAllRecipesPage(recipes);
+    // Navigate to the recipes section
     navigateTo('/recipes');
+    // Handle the recipes section
     handleRecipesSection();
   }
 }
@@ -456,7 +480,8 @@ function ingredientConfirmation(recipes) {
 //     } else {
 //       removeIngredients(1);
 //       processIngredients(newIngredientArray);
-//     }
+//     }5
+
 //   } else {
 //     handleRecipeResponse(recipes);
 //   }
@@ -489,7 +514,7 @@ async function fetchRecipes() {
   }
 }
 
-
+// Function to filter recipes based on cuisine type
 function cuisineTypeFilter() {
   global.selectedCuisine = [];
   const selectedOption = global.cuisineType.options[global.cuisineType.selectedIndex];
@@ -501,6 +526,7 @@ function cuisineTypeFilter() {
   }
 }
 
+// Function to filter recipes based on cooking time
 function timeBasedFilter() {
   // Filter out recipes with totalTime greater than zero and sort them
   const recipesWithTime = global.recipes
@@ -517,6 +543,7 @@ function timeBasedFilter() {
   appendRecipesToAllRecipesPage(sortedRecipes);
 }
 
+// Function to check if recipe is bookmarked
 function isRecipeBookmarked(recipeObj, bookmarks) {
   return bookmarks.some(bookmark => bookmark.uri === recipeObj.uri);
 }
@@ -530,6 +557,7 @@ function checkLoginForBookmark(recipeObj) {
   }
 }
 
+// Function to append recipes to the bookmarks page
 function appendRecipesToBookmarksPage(recipes) {
   const recipeSections = showAllRecipes(recipes);
   global.bookmarksContainer.innerHTML = '';
@@ -552,6 +580,7 @@ async function fetchBookmarks() {
   }
 }
 
+// Function to save a recipe
 async function saveRecipe(recipeObj) {
   const userId = localStorage.getItem('currentUserId');
   const payload = { userId, recipeObj };
@@ -575,6 +604,7 @@ async function saveRecipe(recipeObj) {
   }
 }
 
+// Function to remove a recipe from bookmarks
 async function removeRecipeFromBookmarks(recipeId) {
   const userId = localStorage.getItem('currentUserId');
   const payload = { userId, recipeId };
@@ -598,11 +628,13 @@ async function removeRecipeFromBookmarks(recipeId) {
   }
 }
 
+// Function to check if an email is valid
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
 
+// Function to send login details
 async function sendLoginDetails() {
   if (!isValidEmail(global.loginEmail.value)) {
     global.invalidLoginEmail.textContent = 'Please enter a valid email address.';
@@ -637,6 +669,7 @@ async function sendLoginDetails() {
   }
 }
 
+// Function to send signup details
 async function sendSignupDetails() {
   if (!isValidEmail(global.signupEmail.value)) {
     global.invalidSignupEmail.textContent = 'Please enter a valid email address.';
@@ -668,6 +701,7 @@ async function sendSignupDetails() {
   }
 }
 
+// Function to log out
 function logOut() {
   localStorage.clear();
   navigateTo('/');
@@ -713,7 +747,9 @@ function prepareHandles() {
 function addEventListeners() {
   global.navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
+      // Get the route from the data-route attribute
       const route = e.currentTarget.getAttribute('data-route');
+      // Navigate to the specified route
       navigateTo(route);
     });
   });
