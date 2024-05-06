@@ -29,10 +29,12 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.5",
     "chromedriver": "^124.0.1",
     "eslint": "^8.57.0",
     "eslint-config-portsoc": "^1.0.1",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
   },
   "eslintConfig": {
     "extends": "portsoc",
