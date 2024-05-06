@@ -23,6 +23,7 @@ function hideAllSections() {
 function showSection(selector) {
   hideAllSections();
   document.querySelector(selector).classList.remove('hide');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Function to handle the login section
