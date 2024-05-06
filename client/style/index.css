@@ -43,9 +43,9 @@ hr {
 
 /* Set the styles for the image class */
 .image {
-    width: 120%;
-    max-width: 380px;
-    border-radius: 20px;
+    width: 100%;
+    max-width: 200px;
+    border-radius: 10px;
 }
 
 /* Set the styles for the ingredientSection and recipeSection classes */
@@ -73,11 +73,7 @@ hr {
     transition: ease 0.5s;
     margin-top:10px;
 }
-.categoryIngredients:hover, .recipeSector:hover {
-    width: 390px;
-    border: 3px solid black;
-    box-shadow: 1px 1px 1px 0px;
-}
+
 .recipeSector:hover {
     border: 5px solid limegreen;
 }
