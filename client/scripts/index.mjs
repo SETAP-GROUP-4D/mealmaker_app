@@ -406,8 +406,8 @@ function appendRecipesToAllRecipesPage(recipes) {
   // Clear the recipes container
   global.recipesContainer.innerHTML = '';
 
-  // Display the selected ingredients
-  global.recipesContainer.append('Selected Ingredients: ' + global.ingredientArray.join(', '));
+  // Display the ingredients used to get recipes
+  global.recipesContainer.append('Ingredients: ' + global.ingredientArray.join(', '));
 
   // Append the recipe sections to the recipes container
   global.recipesContainer.append(...recipeSections);
@@ -436,56 +436,29 @@ function ingredientConfirmation(recipes) {
   }
 }
 
-// function optimalIngredientsAlgoritm(recipes) {
-//   let newIngredientArray = [...global.ingredientArray];
-//   let removedIngredients = [];
-//   let ingredientsToRemove = 1;
 
-//   const processIngredients = async (ingredientsArray) => {
-//     const fetchedRecipes = await fetchRecipes(ingredientsArray);
-//     handleRecipeResponse(fetchedRecipes);
-//   };
+// Function to optimize ingredients for recipe search
+function optimalIngredientsAlgoritm(recipes) {
+  const newIngredientArray = [];
+  const ingredients = global.ingredientArray;
 
-//   const removeIngredients = (count) => {
-//     const removedIngredientsThisIteration = [];
-//     for (let i = 0; i < count; i++) {
-//       const removedIngredient = newIngredientArray.shift();
-//       if (removedIngredient) {
-//         removedIngredientsThisIteration.push(removedIngredient);
-//       }
-//     }
-//     removedIngredients.push(...removedIngredientsThisIteration);
-//   };
+  // Check if there are no recipes and more than one ingredient
+  if (recipes.length === 0 && ingredients.length > 1) {
+    // Remove the last ingredient from the array
+    for (let i = 0; i < (ingredients.length - 1); i++) {
+      newIngredientArray.push(ingredients[i]);
+    }
 
-//   const handleRecipeResponse = (recipes) => {
-//     if (recipes.length === 0) {
-//       if (newIngredientArray.length === 0) {
-//         // Base case: no more ingredients left to remove
-//         console.log('No recipes found with the given ingredients');
-//       } else {
-//         const removedIngredientsThisIteration = removedIngredients.splice(-ingredientsToRemove);
-//         newIngredientArray = [...newIngredientArray, ...removedIngredientsThisIteration];
-//         removeIngredients(ingredientsToRemove);
-//         ingredientsToRemove += 1;
-//         processIngredients(newIngredientArray);
-//       }
-//     } else {
-//       ingredientConfirmation(recipes);
-//     }
-//   };
+    // Update the global ingredient array
+    global.ingredientArray = newIngredientArray;
 
-//   if (recipes.length === 0) {
-//     if (newIngredientArray.length === 1) {
-//       processIngredients(newIngredientArray);
-//     } else {
-//       removeIngredients(1);
-//       processIngredients(newIngredientArray);
-//     }5
-
-//   } else {
-//     handleRecipeResponse(recipes);
-//   }
-// }
+    // Fetch recipes with optimized ingredients
+    fetchRecipes();
+  } else {
+    // Proceed with ingredient confirmation
+    ingredientConfirmation(recipes);
+  }
+}
 
 // Function to fetch recipes
 async function fetchRecipes() {
@@ -507,8 +480,7 @@ async function fetchRecipes() {
     const recipes = await response.json();
     global.recipes = recipes;
 
-    ingredientConfirmation(recipes);
-    // optimalIngredientsAlgoritm(recipes);
+    optimalIngredientsAlgoritm(recipes);
   } else {
     console.log('failed to send ingredients', response);
   }
