@@ -1,5 +1,9 @@
 // Global object to store data
-const global = { ingredientArray: [] };
+const global = {
+  ingredientArray: [],
+  registeredUserNav: document.querySelector('.registeredUserNavBar'),
+  navLinks: document.querySelectorAll('.nav-link'),
+};
 
 // function to show registered user navigation
 function showRegisteredUserNav() {
@@ -31,7 +35,6 @@ function handleLoginSection() {
   if (global.registeredUserNav) {
     global.registeredUserNav.classList.add('hide');
   }
-
   showSection('#loginPage');
 }
 
@@ -39,7 +42,6 @@ function handleLoginSection() {
 async function handleIngredientsSection() {
   if (!(localStorage.getItem('Ingredients'))) {
     await showIngredients();
-    await fetchBookmarks();
   }
   showRegisteredUserNav();
   showSection('#ingredientsPage');
@@ -47,8 +49,12 @@ async function handleIngredientsSection() {
 
 // Function to handle the recipes section
 function handleRecipesSection() {
-  showRegisteredUserNav();
-  showSection('#recipePage');
+  if (global.ingredientArray.length > 0) {
+    showRegisteredUserNav();
+    showSection('#recipePage');
+  } else {
+    navigateTo('/ingredients');
+  }
 }
 
 // Function to handle the signup section
@@ -58,14 +64,20 @@ function handleSignupSection() {
 
 // Function to handle the view recipe section
 function handleViewRecipeSection() {
-  showRegisteredUserNav();
-  showSection('#viewRecipePage');
+  if (global.selectedRecipe) {
+    showRegisteredUserNav();
+    showSection('#viewRecipePage');
+    viewRecipe(global.selectedRecipe);
+  } else {
+    navigateTo('/ingredients');
+  }
 }
 
 // Function to handle the bookmarks section
-function handleBookmarksSection() {
+async function handleBookmarksSection() {
   if (localStorage.getItem('currentUserId')) {
     showRegisteredUserNav();
+    await fetchBookmarks();
     showSection('#bookmarksPage');
   } else {
     navigateTo('/');
@@ -392,6 +404,7 @@ function showAllRecipes(recipes) {
     recipeSec.append(recipeImg, recipeTitle, cookingTime);
     recipeSec.classList.add('recipeSector');
     recipeSec.addEventListener('click', () => {
+      global.selectedRecipe = recipeObject;
       viewRecipe(recipeObject);
       navigateTo('/viewrecipe');
     });
@@ -681,6 +694,17 @@ function logOut() {
   location.reload(true);
 }
 
+// Function to warn the user before reloading
+function warnBeforeReload(event) {
+  const currentRoute = location.pathname;
+  if (currentRoute === '/recipes' || currentRoute === '/viewrecipe') {
+    const confirmMessage = 'Reloading this page will reset your selected ingredients and redirect back to Ingredients Page. Are you sure you want to reload?';
+    event.returnValue = confirmMessage; // For most browsers
+    return confirmMessage; // For some older browsers
+  }
+}
+
+
 // Function to prepare handles
 function prepareHandles() {
   global.ingredientSections = document.querySelectorAll('.listSector');
@@ -711,9 +735,6 @@ function prepareHandles() {
   global.ingredientSearch = document.querySelector('#ingredientSearch');
 
   global.bookmarksContainer = document.querySelector('.bookmarksContainer');
-
-  global.navLinks = document.querySelectorAll('.nav-link');
-  global.registeredUserNav = document.querySelector('.registeredUserNavBar');
 }
 
 // Function to add event listeners
@@ -747,6 +768,7 @@ function pageLoaded() {
   router();
   prepareHandles();
   addEventListeners();
+  window.addEventListener('beforeunload', warnBeforeReload);
 }
 
 pageLoaded();
