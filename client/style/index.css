@@ -60,7 +60,25 @@ body {
         flex-flow: row wrap;
 
     }
-
+    .registeredUserNavBar {
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+        padding: 15px;
+    }
+   .registeredUserNavBar button {
+    padding: 15px;
+    background-color: rgb(255, 166, 0);
+    font-size: 14px;
+    border-radius: 10px;
+    transition: ease .5s;
+   }
+   .registeredUserNavBar button:hover {
+    padding: 18px;
+    opacity: 80%;
+    border: 2px solid white;
+   }
     #cookingTimeFilter{
         position: relative;
         background-color: #2c786c;
