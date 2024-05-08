@@ -70,7 +70,7 @@ body {
         margin: auto;
         display: flex;
         justify-content: space-evenly;
-        width: 70%;
+        width: 100%;
         padding: 15px;
     }
    .registeredUserNavBar button {
@@ -79,7 +79,7 @@ body {
     font-size: 14px;
     border-radius: 10px;
     transition: ease .5s;
-    width: 15%;
+    width: 23%;
    }
    .registeredUserNavBar button:hover {
     padding: 18px;
