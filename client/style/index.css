@@ -43,7 +43,13 @@ body {
         border: 1px solid black;
         border-radius: 20px;
     }
-
+    .recipeDetailsContainer {
+        margin: auto;
+        border: 2px solid navy;;
+        width: 80%;
+        padding: 10px;
+        border-radius: 15px;
+    }
     /* Set the styles for the image class */
     .image {
         width: 100%;
@@ -63,8 +69,8 @@ body {
     .registeredUserNavBar {
         margin: auto;
         display: flex;
-        justify-content: space-between;
-        width: 50%;
+        justify-content: space-evenly;
+        width: 70%;
         padding: 15px;
     }
    .registeredUserNavBar button {
@@ -73,6 +79,7 @@ body {
     font-size: 14px;
     border-radius: 10px;
     transition: ease .5s;
+    width: 15%;
    }
    .registeredUserNavBar button:hover {
     padding: 18px;
