@@ -70,9 +70,6 @@ body {
         font-size: 15px;
         right: 250px;
         color: rgb(245, 243, 243);
-        
-
-
     }
    
     #cuisineFilter{
@@ -80,7 +77,6 @@ body {
         left: 250px;
         font-size: 15px;
         padding: 8px;
-
     }
 
     /* Set the title pf the recipe page to stand out*/
@@ -115,7 +111,7 @@ body {
     }
 
     /* Set the styles for the listSector class */
-    .listSector>button {
+    .listSector>button, .registeredUserNavBar{
         font-family: 'PT Serif';
         font-size: 20px;
         color: rgb(255, 255, 255);
@@ -164,6 +160,20 @@ body {
         display: none;
     }
 
+    .bookmarkBtn {
+        padding: 10px;
+        border-radius: 20px;
+        font-family: 'PT Serif';
+        font-size: 20px;
+        background-color: #F7882F;
+        border-color: #F7882F;
+        color: black;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 350px;
+        cursor: pointer;
+    }
+
     /* Set the styles for the selectedIngredientsArray class */
     .selectedIngredientsArray {
         padding: 10px;
@@ -198,6 +208,7 @@ body {
         flex-direction: column;
         position: sticky;
         top: 0;
+        background-color: white;
     }
 
     /* Set the styles for the loginSection and signupSection classes */

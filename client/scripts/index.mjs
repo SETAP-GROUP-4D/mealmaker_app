@@ -59,6 +59,11 @@ function handleRecipesSection() {
 
 // Function to handle the signup section
 function handleSignupSection() {
+  if (global.invalidSignupEmail || global.signupEmail || global.signupPassword) {
+    global.invalidSignupEmail.textContent = '';
+    global.signupEmail.value = '';
+    global.signupPassword.value = '';
+  }
   showSection('#signupPage');
 }
 
@@ -254,13 +259,15 @@ async function viewRecipe(recipeObj) {
   global.unbookmarkBtn.textContent = 'Remove Bookmark';
   global.unbookmarkBtn.classList.add('unbookmarkBtn');
   global.unbookmarkBtn.classList.add('hide');
+  global.unbookmarkBtn.classList.add('bookmarkBtn');
   global.unbookmarkBtn.addEventListener('click', () => removeRecipeFromBookmarks(recipeObj.uri));
 
   // Create the bookmark button
   global.bookmarkBtn = document.createElement('button');
-  global.bookmarkBtn.textContent = 'Bookmark';
+  global.bookmarkBtn.textContent = 'Bookmark Recipe';
   global.bookmarkBtn.classList.add('bookmarkBtn');
   global.bookmarkBtn.classList.add('hide');
+  global.bookmarkBtn.classList.add('bookmarkBtn');
   global.bookmarkBtn.addEventListener('click', () => checkLoginForBookmark(recipeObj));
 
   const mealImg = document.createElement('img');
@@ -273,6 +280,7 @@ async function viewRecipe(recipeObj) {
   const mealAllergies = document.createElement('ol');
   const healthInformation = document.createElement('ol');
   const viewInstructionsLink = document.createElement('a');
+  const viewInstructionsP = document.createElement('p');
   const nutrientsPara = document.createElement('section');
 
   // Get the nutrients object from the recipe
@@ -306,6 +314,7 @@ async function viewRecipe(recipeObj) {
   viewInstructionsLink.href = recipeObj.url;
   viewInstructionsLink.textContent = 'View Instructions';
   viewInstructionsLink.target = '_blank';
+  viewInstructionsP.append(viewInstructionsLink);
 
   // Append recipe instructions as paragraph items
   for (const line of recipeObj.ingredientLines) {
@@ -351,9 +360,10 @@ async function viewRecipe(recipeObj) {
 
   // Append all elements to the recipe details container
   global.recipeDetailsContainer.append(
-    global.bookmarkBtn, global.unbookmarkBtn, mealImg, mealTitle, ingredientsHeader,
-    mealIngredients, allergiesHeader, mealAllergies, healthInformationHeader,
-    healthInformation, nutitionHeader, nutrientsPara, viewInstructionsLink,
+    mealImg, mealTitle, global.bookmarkBtn, global.unbookmarkBtn,
+    viewInstructionsP, ingredientsHeader, mealIngredients,
+    allergiesHeader, mealAllergies, healthInformationHeader,
+    healthInformation, nutitionHeader, nutrientsPara,
   );
 
   // Fetch bookmarks and check if the recipe is bookmarked
@@ -456,14 +466,11 @@ function optimalIngredientsAlgoritm(recipes) {
   const newIngredientArray = [];
   const ingredients = global.ingredientArray;
 
-  // Check if there are no recipes and more than one ingredient
   if (recipes.length === 0 && ingredients.length > 1) {
     // Remove the last ingredient from the array
     for (let i = 0; i < (ingredients.length - 1); i++) {
       newIngredientArray.push(ingredients[i]);
     }
-
-    // Update the global ingredient array
     global.ingredientArray = newIngredientArray;
 
     // Fetch recipes with optimized ingredients
@@ -682,6 +689,7 @@ async function sendSignupDetails() {
 
     if (response.ok) {
       console.log('User created successfully');
+      global.invalidSignupEmail.textContent = '';
       global.invalidDetails.textContent = '';
       global.invalidLoginEmail.textContent = '';
       global.loginEmail.value = '';
@@ -689,6 +697,8 @@ async function sendSignupDetails() {
       global.signupEmail.value = '';
       global.signupPassword.value = '';
       navigateTo('/');
+    } else if (response.status === 400) {
+      global.invalidSignupEmail.textContent = 'Email already exists. Please use a different email address.';
     } else {
       console.log('failed to create user', response);
     }
