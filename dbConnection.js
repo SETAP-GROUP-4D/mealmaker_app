@@ -5,7 +5,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Initialize the database connection
+/**
+ * Initialize the database connection.
+ * @async
+ * @function init
+ * @returns {Promise<Object>} The database connection object.
+ */
 async function init() {
   const db = await open({
     filename: './database.sqlite',
@@ -18,6 +23,14 @@ async function init() {
 
 const dbConn = init();
 
+/**
+ * Create a new user account in the database.
+ * @async
+ * @function createUser
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @returns {Promise<Object>} The result of the database operation.
+ */
 export async function createUser(email, password) {
   const db = await dbConn;
   const result = await db.run(`
@@ -27,6 +40,13 @@ export async function createUser(email, password) {
   return result;
 }
 
+/**
+ * Get a user account from the database by email.
+ * @async
+ * @function getUser
+ * @param {string} email - The user's email address.
+ * @returns {Promise<Object>} The user account object, or null if not found.
+ */
 export async function getUser(email) {
   const db = await dbConn;
   const result = await db.get(`
@@ -36,6 +56,12 @@ export async function getUser(email) {
   return result;
 }
 
+/**
+ * Get all ingredients from the database.
+ * @async
+ * @function sendIngredients
+ * @returns {Promise<Array>} An array of ingredient objects.
+ */
 export async function sendIngredients() {
   const db = await dbConn;
   const ingredients = await db.all(`
@@ -51,6 +77,14 @@ export async function sendIngredients() {
   return ingredients;
 }
 
+/**
+ * Get recipes from the Edamam API based on ingredients and cuisine type.
+ * @async
+ * @function sendRecipes
+ * @param {Array} ingredients - An array of ingredient names.
+ * @param {Array} cuisineType - An array of cuisine types.
+ * @returns {Promise<Array>} An array of recipe objects.
+ */
 export async function sendRecipes(ingredients, cuisineType) {
   // Edamam API credentials
   const APP_ID = process.env.APP_ID;
@@ -74,6 +108,14 @@ export async function sendRecipes(ingredients, cuisineType) {
   return recipes;
 }
 
+/**
+ * Create a new bookmark in the database for a user and recipe.
+ * @async
+ * @function createBookmark
+ * @param {string} accountId - The user's account ID.
+ * @param {Object} recipeObj - The recipe object to bookmark.
+ * @returns {Promise<Object>} The result of the database operation.
+ */
 export async function createBookmark(accountId, recipeObj) {
   const db = await dbConn;
 
@@ -93,6 +135,13 @@ export async function createBookmark(accountId, recipeObj) {
   return result;
 }
 
+/**
+ * Get bookmarks for a specific user from the database.
+ * @async
+ * @function sendBookmarks
+ * @param {string} accountId - The user's account ID.
+ * @returns {Promise<Array>} An array of bookmark objects.
+ */
 export async function sendBookmarks(accountId) {
   const db = await dbConn;
   const bookmarks = await db.all(`
@@ -106,6 +155,14 @@ export async function sendBookmarks(accountId) {
   return bookmarks;
 }
 
+/**
+* Delete a bookmark from the database for a specific user and recipe.
+* @async
+* @function deleteBookmarkFromDatabase
+* @param {string} accountId - The user's account ID.
+* @param {string} recipeId - The recipe ID.
+* @returns {Promise<Object>} The result of the database operation.
+*/
 export async function deleteBookmarkFromDatabase(accountId, recipeId) {
   const db = await dbConn;
   const result = await db.run(`
