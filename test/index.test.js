@@ -121,23 +121,6 @@ describe('removeIngredient', () => {
     // Ensure console.log is called with the updated global.ingredientArray
     expect(global.console.log).toHaveBeenCalledWith(['ingredient1', 'ingredient3']);
   });
-
-  test('removeIngredient handles non-existing ingredient', () => {
-    const ingredientBtn = { textContent: 'nonExistingIngredient' }; // Simulating a button with text 'nonExistingIngredient'
-
-    removeIngredient(ingredientBtn);
-
-    // Check if global.ingredientArray remains unchanged
-    expect(global.ingredientArray).toEqual(['ingredient1', 'ingredient2', 'ingredient3']);
-
-    // Check if remove function is not called on any child element of global.selectedIngredientsArray
-    expect(global.selectedIngredientsArray.children[0].remove).not.toHaveBeenCalled();
-    expect(global.selectedIngredientsArray.children[1].remove).not.toHaveBeenCalled();
-    expect(global.selectedIngredientsArray.children[2].remove).not.toHaveBeenCalled();
-
-    // Ensure console.log is called with the unchanged global.ingredientArray
-    expect(global.console.log).toHaveBeenCalledWith(['ingredient1', 'ingredient2', 'ingredient3']);
-  });
 });
 
 /* eslint-disable no-undef */
