@@ -15,7 +15,7 @@ build:
 jsdoc:
   # The path to the JavaScript source files
   source:
-    - ./client/scripts/index.mjs
+    - ./client/scripts/main.mjs
     - ./server.js
     - ./dbConnection.js
   # The output directory for the generated documentation
