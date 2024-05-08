@@ -86,7 +86,7 @@ body {
     opacity: 80%;
     border: 2px solid white;
    }
-    #cookingTimeFilter{
+    /* #cookingTimeFilter{
         position: relative;
         background-color: #2c786c;
         padding: 10px;
@@ -102,6 +102,43 @@ body {
         left: 250px;
         font-size: 15px;
         padding: 8px;
+    } */
+
+    #cookingTimeFilter {
+        position: relative;
+        background-color: #2c786c;
+        padding: 10px;
+        border-radius: 10px;
+        border-color: #2c786c;
+        font-size: 15px;
+        color: rgb(245, 243, 243);
+        margin-bottom: 10px; /* Add margin-bottom for spacing */
+        left: 0; /* Reset the left position */
+        right: 0; /* Reset the right position */
+        width: fit-content; /* Adjust the width to fit the content */
+        margin-left: auto; /* Center the element horizontally */
+        margin-right: auto;
+    }
+    
+    #cuisineFilter {
+        position: relative;
+        font-size: 15px;
+        padding: 8px;
+        left: 0; /* Reset the left position */
+        width: fit-content; /* Adjust the width to fit the content */
+        margin-left: auto; /* Center the element horizontally */
+        margin-right: auto;
+    }
+    
+    @media (max-width: 400px) {
+        /* Existing styles for mobile view */
+    
+        #cookingTimeFilter,
+        #cuisineFilter {
+            width: 100%; /* Make the elements full-width in mobile view */
+            margin-left: 0; /* Remove the horizontal centering */
+            margin-right: 0;
+        }
     }
 
     /* Set the title pf the recipe page to stand out*/
