@@ -9,7 +9,7 @@ version: 2
 build:
   os: ubuntu-22.04
   tools:
-    nodejs: "21.6.1"
+    nodejs: "18"
 
 # Build documentation using JSDoc
 jsdoc:
