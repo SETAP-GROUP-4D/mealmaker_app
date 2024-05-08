@@ -9,13 +9,13 @@ version: 2
 build:
   os: ubuntu-22.04
   tools:
-    nodejs: "18"
+    nodejs: "21.6.1"
 
 # Build documentation using JSDoc
 jsdoc:
   # The path to the JavaScript source files
   source:
-    - ./client
+    - ./client/scripts/index.mjs
     - ./server.js
     - ./dbConnection.js
   # The output directory for the generated documentation
