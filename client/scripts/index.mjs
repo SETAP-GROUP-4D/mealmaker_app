@@ -543,6 +543,7 @@ function checkLoginForBookmark(recipeObj) {
   }
 }
 
+// Function to show sign up popup
 function showSignUpPopup() {
   const confirmSignUp = confirm('You need to sign up to bookmark recipes. Do you want to sign up now?');
   if (confirmSignUp) {
