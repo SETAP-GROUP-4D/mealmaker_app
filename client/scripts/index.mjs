@@ -539,7 +539,14 @@ function checkLoginForBookmark(recipeObj) {
   if (localStorage.getItem('currentUserId')) {
     saveRecipe(recipeObj);
   } else {
-    navigateTo('/');
+    showSignUpPopup();
+  }
+}
+
+function showSignUpPopup() {
+  const confirmSignUp = confirm('You need to sign up to bookmark recipes. Do you want to sign up now?');
+  if (confirmSignUp) {
+    navigateTo('/signup');
   }
 }
 
