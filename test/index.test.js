@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-const fetchAllIngredients = require('./food.js').fetchAllIngredients;
+const fetchAllIngredients = require('./fetch.js').fetchAllIngredients;
 
 describe('fetchAllIngredients', () => {
   beforeEach(() => {
@@ -46,7 +46,7 @@ describe('fetchAllIngredients', () => {
 });
 
 
-const fetchRecipes = require('./food.js').fetchRecipes;
+const fetchRecipes = require('./fetch.js').fetchRecipes;
 
 describe('fetchRecipes', () => {
   beforeEach(() => {
@@ -91,7 +91,7 @@ describe('fetchRecipes', () => {
   });
 });
 
-const { removeIngredient } = require('./food.js');
+const { removeIngredient } = require('./fetch.js');
 
 describe('removeIngredient', () => {
   beforeEach(() => {
@@ -125,7 +125,7 @@ describe('removeIngredient', () => {
 
 /* eslint-disable no-undef */
 // Import the function to test
-const { sendIngredients } = require('./food.js');
+const { sendIngredients } = require('./fetch.js');
 
 // Mocking the database connection
 const mockDbConn = {

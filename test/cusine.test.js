@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 const { fetchRecipes, cuisineTypeFilter } = require('./recipes_cusine.js');
-const { fetchFromServer } = require('./api');
+const { fetchFromServer } = require('./recipe_mockapi.js');
 
-jest.mock('./api'); // Mock the api module
+jest.mock('./recipe_mockapi.js'); // Mock the api module
 
 describe('fetchRecipes', () => {
   it('fetches recipes successfully from an API', async () => {

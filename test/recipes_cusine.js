@@ -1,4 +1,4 @@
-const { fetchFromServer } = require('./api');
+const { fetchFromServer } = require('./recipe_mockapi.js');
 
 function fetchRecipes(ingredientArray, selectedCuisine, fetchFunction) {
   const payload = { ingredients: ingredientArray, cuisineType: selectedCuisine };
