@@ -887,6 +887,15 @@ async function sendSignupDetails() {
 }
 
 /**
+ * Log in as a guest user.
+ * @function guestLogin
+  */
+function guestLogin() {
+  localStorage.removeItem('currentUserId');
+  navigateTo('/ingredients');
+}
+
+/**
 * Log out the current user.
 * @function logOut
 */
@@ -933,6 +942,7 @@ function prepareHandles() {
   global.logOutBtn = document.querySelector('.logOutBtn');
   global.invalidDetails = document.querySelector('.invalidDetails');
   global.invalidLoginEmail = document.querySelector('.invalidLoginEmail');
+  global.guestLoginBtn = document.querySelector('#guest_button');
 
   global.signupEmail = document.querySelector('#new_email');
   global.signupPassword = document.querySelector('#new_password');
@@ -969,6 +979,7 @@ function addEventListeners() {
 
   global.signupBtn.addEventListener('click', sendSignupDetails);
   global.loginBtn.addEventListener('click', sendLoginDetails);
+  global.guestLoginBtn.addEventListener('click', guestLogin);
   global.logOutBtn.addEventListener('click', logOut);
 }
 
