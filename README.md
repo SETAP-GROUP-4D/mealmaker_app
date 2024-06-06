@@ -42,7 +42,7 @@ To run MealMaker locally, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/your-username/MealMaker.git`
 2. Navigate to the project directory: `cd MealMaker`
-3. Create a `.env` file in the project's root directory and copy the contents from `.env.sample`. Replace the placeholders with your own values. You can get your API details from [text](https://www.edamam.com/)
+3. Create a `.env` file in the project's root directory and copy the contents from `.env.sample`. Replace the placeholders with your own values. You can get your API details from [the edamam website](https://www.edamam.com/)
 4. Install dependencies: `npm install`
 5. Start the server: `npm start`
 6. Open the application in your web browser at `http://localhost:8080`
