@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/SETAP-GROUP-4D/mealmaker#readme",
   "dependencies": {
-    "axios": "^1.6.8",
+    "axios": "^1.13.5",
     "bcrypt": "^5.1.1",
     "bootstrap-icons": "^1.11.3",
     "dotenv": "^16.4.5",
